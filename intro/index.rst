@@ -27,7 +27,17 @@ již zastaralá verze a měla by se opustit.
         V budoucí stabilní verzi QGIS 3.x s dlouhodobou podporou již nebude
         Python 3 problém.
 
-.. toctree::
-   :maxdepth: 2
+=============
+QGIS a Python
+=============
+Od verze 0.9 programu QGIS lze používat programovací jazyk Python pro přístup k
+některým funkcím. Python lze v kombinaci s QGISem používat v následujcích
+situacích:
 
-   konzole
+* Automatický skript při startu QGIS
+* Použití interkativní konzole a zadávání příkazů napřímo
+* Tvorba a použití zásuvných modulů
+* Tvorba vlastních aplikací postavených na knihovných QGIS
+
+Dále je možné tvořit zásuvné moduly pro QGIS server. 
+
