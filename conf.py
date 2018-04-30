@@ -66,5 +66,5 @@ sys.path.append(os.path.join('..', 'sphinx-template'))
 
 from conf_base import *
 
-todo_include_todos = False
+todo_include_todos = True
 html_use_index = True
