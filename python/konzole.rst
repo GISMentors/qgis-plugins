@@ -64,9 +64,8 @@ Se zobrazí dokumentace k použití Pythonu v QGIS.
 
 Zobrazí dokumentaci k aplikačnímu rozhraní QGIS.
 
-======
 Editor
-======
+------
 
 Vestavěný editor kódu spustíte kliknutím na ikonu |showEditorConsole|. Při psaní
 programu může být užitečná funkce automatického doplňování (:kbd:`Ctrl+Mezera`),

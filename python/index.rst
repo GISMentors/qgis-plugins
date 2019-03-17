@@ -20,5 +20,6 @@ Dále je možné tvořit zásuvné moduly pro QGIS server.
    :maxdepth: 2
 
    startup
-   standalone
    konzole
+   pluginy
+   standalone

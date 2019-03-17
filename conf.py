@@ -68,3 +68,13 @@ from conf_base import *
 
 todo_include_todos = True
 html_use_index = True
+
+
+rst_prolog += """
+.. |pluginBuilderIcon| image:: ../images/icon/plugin_builder.png
+   :width: 1.5em
+
+.. |pluginReloaderIcon| image:: ../images/icon/reload.png
+   :width: 1.5em
+
+"""
