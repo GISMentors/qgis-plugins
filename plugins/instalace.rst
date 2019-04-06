@@ -128,29 +128,29 @@ provede nastavení prostředí a tím se usnadnil vývoj zásuvných modulů.
 Následující kód nastaví pracovní cesty a cesty ke spustitelným souborům v
 prostředí OSGeo4W a spustí příkazovou řádku Windows.
 
-.. code-block::
+.. code-block:: bat
 
         @echo off
         SET OSGEO4W_ROOT=C:\OSGeo4W64
         call "%OSGEO4W_ROOT%"\bin\o4w_env.bat
-
+        
         @echo off
         path %PATH%;%OSGEO4W_ROOT%\apps\qgis\bin
         path %PATH%;%OSGEO4W_ROOT%\apps\grass\grass-7.4.0\lib
         path %PATH%;C:\OSGeo4W64\apps\Qt5\bin
         path %PATH%;C:\OSGeo4W64\apps\Python36\Scripts
-
+        
         set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python
         set PYTHONHOME=%OSGEO4W_ROOT%\apps\Python36
-
+        
         set PATH=C:\Program Files\Git\bin;%PATH%
-
+        
         cmd.exe
 
 .. note:: Upravte cesty k souborům tak, aby odpovídaly situaci na vašem
         operačním systému.
 
-Soubor uložte do složky :path:`c:\OSGeo4W` a pojmenujte jej :file:`pyqgis.cmd`.
+Soubor uložte do složky :file:`c:\OSGeo4W` a pojmenujte jej :file:`pyqgis.cmd`.
 
 Klikněte na soubor 2x levým tlačítkem myši, a otevře se příkazová řádka windows.
 V této příkazové řádce je vše nastavené tak, abychom mohli používat Python a

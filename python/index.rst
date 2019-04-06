@@ -21,5 +21,4 @@ Dále je možné tvořit zásuvné moduly pro QGIS server.
 
    startup
    konzole
-   pluginy
    standalone

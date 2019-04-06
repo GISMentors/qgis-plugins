@@ -69,12 +69,13 @@ from conf_base import *
 todo_include_todos = True
 html_use_index = True
 
+local = os.path.abspath(os.path.curdir)
 
 rst_prolog += """
-.. |pluginBuilderIcon| image:: ../images/icon/plugin_builder.png
+.. |pluginBuilderIcon| image:: /{local}/images/icon/plugin_builder.png
    :width: 1.5em
 
-.. |pluginReloaderIcon| image:: ../images/icon/reload.png
+.. |pluginReloaderIcon| image:: /{local}/images/icon/reload.png
    :width: 1.5em
 
-"""
+""".format(local=local)
