@@ -177,6 +177,7 @@ Následuje informační text o tom, jak bude probíhat nasazení. Je dobré
 zkontrolovat cílovou cestu - a následně potvrdit `y`.
 
 .. code-block:: bash
+
         (qgis3plugins) ~/.../save_views$ pb_tool deploy
         Deploying to /home/user/.local/share/QGIS/QGIS3/profiles/default/python/plugins/save_views
         Deploying will:
