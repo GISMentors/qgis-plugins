@@ -11,3 +11,4 @@ https://github.com/GISMentors/qgis-pokrocily/blob/c28db0269d5b77446e28cb2054e7ef
         instalace
         development_plugins
         zalozeni_pluginu
+        qt_designer

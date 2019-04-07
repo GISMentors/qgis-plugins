@@ -108,3 +108,101 @@ Po kliknutí na tlačítko :guilabel:`Generate` je  plugin vytvořen.
 .. figure:: ../images/builder_report.png
 
         Finální report o tvorbě zásuvného modulu
+
+V tuto chvíli byl vytvořen adresář se zásuvným modulem a minimální sadou souborů
+potřebnou pro jeho běh:
+
+`help`
+        Adresář se soubory pro dokumentaci zásuvného modulu
+`i18n`
+        Adresář se soubory pro jazykové mutace zásuvného modulu
+`scripts`
+        Pomocné skripty potřebné pro překlad a další
+`tests`
+        Prostředí pro tvorbu a běh automatizovaných testů
+`icon.png`
+        Ikona, která bude použita v QGIS
+`__init__.py`
+        Python modul
+`Makefile`
+        Skript pro automatizování sestavení zásuvného modulu. Je východnější
+        používat nástroj `pb_tool`
+`metadata.txt`
+        Soubor se základními informacemi o zásuvném modulu, jeho autorech, linky
+        na správu bugů, a další
+`pb_tool.cfg`
+        Konfigurační soubor skriptu `pb_tool`. Doporučuje se používat tento
+        nástroj na rozdíl od staršího `make`
+`plugin_upload.py`
+        Skript pro automatický upload zásuvného modulu na server
+        `plugins.qgis.org`
+`pylintrc`
+        Konfigurační soubor pro statickou kontrolu zdrojového kódu nástrojem
+        `pylint`
+`README.*`
+        Soubory se základními informacemi o projektu
+`resources.*`
+        Ikony a obrázky potřebné pro vykreslení zásuvného modulu při jeho
+        inicializaci.
+`save_views_dialog_base.ui`
+        Konfigurace živatelského rozhraní
+`save_views_dialog.py`
+        Python skript pro inicializaci dialogového okna
+`save_views.py`
+        Základní skript zásuvného modulu
+
+###################
+Konfigurace pb_tool
+###################
+
+Pro použití nástroje `pb_tool`, je potřeba nejprve upravit soubor `pb_tool.cfg`:
+
+Můžeme upravit některé proměnné, například hodnotu `plugin_path` a nastavit cílovou cestu
+pro uložení zásuvného modulu do QGISu.
+
+Pokud máme některé další důležité soubory pro distribuci, mohou zde být
+nakonfigurovány.
+
+###############
+Nasazení modulu
+###############
+
+Zásuvný modul nasadíme do QGISu příkazem
+
+.. code-block:: bash
+        
+        pb_tool deploy
+
+Následuje informační text o tom, jak bude probíhat nasazení. Je dobré
+zkontrolovat cílovou cestu - a následně potvrdit `y`.
+
+.. code-block:: bash
+        (qgis3plugins) ~/.../save_views$ pb_tool deploy
+        Deploying to /home/user/.local/share/QGIS/QGIS3/profiles/default/python/plugins/save_views
+        Deploying will:
+                * Remove your currently deployed version
+                * Compile the ui and resource files
+                * Build the help docs
+                * Copy everything to your /home/user/.local/share/QGIS/QGIS3/profiles/default/python/plugins/save_views directory
+
+        Proceed? [y/N]: y
+
+Nástroj `pb_tool` nás informuje o průběhu nasazování. Po jeho skončení můžeme
+v QGIS zásuvný modul aktivovat - je ovšem nutné nejprve restartovat QGIS.
+
+Ve správě zásuvných modulů můžeme náš modul `SaveView` aktivovat
+
+
+.. figure:: ../images/aktivace.png
+
+        Aktivace zásuvného modulu
+
+Modul můžeme následně spustit z lišty, mělo by se nám ukázat prázdné dialogové
+okno.
+
+.. figure:: ../images/prvni_spusteni.png
+
+        První spuštění zásuvného modulu
+
+
+
