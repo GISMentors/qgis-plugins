@@ -82,4 +82,3 @@ Source code is available at:
 Feel free to report issues at:
 
 * https://github.com/GISMentors/qgis-plugins/issues
-  
