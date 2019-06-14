@@ -1,8 +1,6 @@
-*************
-QGIS a Python
-*************
-
-.. todo:: Zdroj je https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/intro.html
+***************
+QGIS and Python
+***************
 
 Od verze 0.9 programu QGIS lze používat programovací jazyk Python pro přístup k
 některým funkcím. Python lze v kombinaci s QGISem používat v následujcích
@@ -22,3 +20,4 @@ Dále je možné tvořit zásuvné moduly pro QGIS server.
    startup
    konzole
    standalone
+   pyqgis_intro

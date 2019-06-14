@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/temporal_tables" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>

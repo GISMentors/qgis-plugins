@@ -70,6 +70,7 @@ todo_include_todos = True
 html_use_index = True
 
 local = os.path.abspath(os.path.curdir)
+language="en"
 
 rst_prolog += """
 .. |pluginBuilderIcon| image:: /{local}/images/icon/plugin_builder.png
@@ -79,3 +80,15 @@ rst_prolog += """
    :width: 1.5em
 
 """.format(local=local)
+
+
+rst_prolog += """
+.. |new_plugin| image:: ./src/fiberplanitconvert-01-init/icon.png
+   :width: 1.5em
+.. |new_plugin1| image:: ../src/fiberplanitconvert-01-init/icon.png
+   :width: 1.5em
+"""
+
+extlinks["pyqgis"] = ('https://qgis.org/pyqgis/master/core/%s.html', '')
+extlinks["pyqt"] = ('https://doc.qt.io/qtforpython/PySide2/QtWidgets/%s.html', '')
+extlinks["qt5"] = ('https://doc.qt.io/qt-5/{}.html'.format("%s".lower()), '')
