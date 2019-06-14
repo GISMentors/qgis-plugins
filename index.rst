@@ -77,9 +77,9 @@ Source code
 
 Source code is available at:
 
-* https://github.com/GISMentors/yungo-plugins
+* https://github.com/GISMentors/qgis-plugins
 
 Feel free to report issues at:
 
-* https://github.com/GISMentors/yungo-plugins/issues
+* https://github.com/GISMentors/qgis-plugins/issues
   
