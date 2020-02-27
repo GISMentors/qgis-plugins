@@ -1,7 +1,7 @@
 Školení QGIS: Zásuvné moduly (plugins)
 ======================================
 
-http://training.gismentors.eu/qgis-plugins
+https://training.gismentors.eu/qgis-plugins
 
 Licence
 -------
