@@ -34,6 +34,8 @@ following sections:
    qt_designer
    plugins/index
    publish_plugin
+   supplementary/index
+
 ..
    misc
    
