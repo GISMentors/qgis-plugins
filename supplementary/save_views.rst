@@ -457,7 +457,7 @@ konkrétní vektorové vrstvy. Liší se pouze pořadovým číslem.
       Příklad nové ikonky
 
 Výsledný soubor ``save_views.py`` je ke stažení také `zde
-<../_static/skripty/save_views.py>`__.
+<../_static/scripts/save_views.py>`__.
            
 Jiný příklad využití
 --------------------
