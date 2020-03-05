@@ -2,6 +2,8 @@
 QGIS and Python
 ***************
 
+.. todo:: Rewrite to English.
+          
 Od verze 0.9 programu QGIS lze používat programovací jazyk Python pro přístup k
 některým funkcím. Python lze v kombinaci s QGISem používat v následujcích
 situacích:

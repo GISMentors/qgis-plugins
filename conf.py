@@ -9,7 +9,7 @@ from utils import get_month_year, get_year
 # -- General configuration ------------------------------------------------
 
 # General information about the project.
-project = u'Školení QGIS: Zásuvné moduly'
+project = u'Developing QGIS Plugins'
 copyright = u'2018-%d GISMentors' % get_year()
 
 # The version info for the project you're documenting, acts as replacement for

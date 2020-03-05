@@ -17,7 +17,7 @@ following sections:
 * Create custom applications based on the QGIS API
 
 (source: `PyQGIS Developer Cookbook
-<https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/intro.html>`__)
+<https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/intro.html>`__)
 
 .. important:: All examples are QGIS 3.4 LTR compatible. Python 3.x and Qt
    5.x required. Functionality in other QGIS versions is not
