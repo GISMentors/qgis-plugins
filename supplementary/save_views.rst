@@ -12,11 +12,6 @@ Save Views
 
 .. todo:: Rewrite to English
           
-Pět základních kroků pro vytvoření pluginu Save Views
-=====================================================
-
-.. _krok1:
-
 1. Vytvoření šablony nového pluginu
 -----------------------------------
 
