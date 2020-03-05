@@ -10,7 +10,7 @@
 Save Views
 ==========
 
-.. todo:: Rewrite to English
+.. todo:: Clean-up & rewrite to English
           
 1. Vytvoření šablony nového pluginu
 -----------------------------------
