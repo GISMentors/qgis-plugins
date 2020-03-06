@@ -1,0 +1,72 @@
+***********
+Creating UX
+***********
+
+
+For now, we need 2 user inputs:
+
+* Input vector layer
+* Output target directory
+
+.. task:: In the Qt Designer create 2 required inputs. Use
+    :pyqgis:`QgsMapLayerComboBox` for layer selection, :pyqgis:`QgsFileWidget` for
+    output dir name.
+
+    Use `objectName` attribute to name the objects: `dlg_layers` and
+    `output_dir`.
+
+    Consider using Horizontal and Vertical layouts. 
+
+.. figure:: ../images/plugin-ui-final.svg
+   :class: middle
+
+    Final plugin design *Save Views*.
+
+
+========
+The Code
+========
+
+The ``run()`` method of the :py:class:`SaveViews` class
+has to do following tasks:
+
+#. Initialize some initial form inputs
+#. Get the user input data
+#. Call the saving function
+
+.. literalinclude:: ../src/save_views02/save_views.py
+        :lines: 217-242
+        :linenos:
+        :emphasize-lines: 16,17,18
+
+Note, that we had to import some more Qgs modules
+
+.. literalinclude:: ../src/save_views02/save_views.py
+        :linenos:
+        :lines: 29-32
+
+Image save function
+-------------------
+
+Finally, we approach to the heart of the plugin: the ``save_views()`` method.
+
+.. literalinclude:: ../src/save_views02/save_views.py
+        :linenos:
+        :lines: 244-276
+
+.. figure:: ../images/plugin-ui-final2.png
+   :class: small
+
+    Final plugin usage *Save Views*.
+
+.. task:: Make sure, program will not fail, if no directory is selected
+
+.. hint:: In case you want to change plugin icon, fix the :file:`icon.png` file
+    as you wish.
+
+.. _np-plugin-result:
+
+.. figure:: ../images/save-views-result.png
+   :class: large
+
+   Final files stored in output dir

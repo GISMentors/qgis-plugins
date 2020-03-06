@@ -2,6 +2,9 @@
 Build the plugin
 ################
 
+.. important:: Make sure, where is ``pyrcc5`` the PyQt5 resource compiler
+    available in your :env:`PATH`
+
 To build the plugin ``pb_tool`` must be available in the system. This
 package is available via PyPI service (using ``pip install``).
 
@@ -40,41 +43,55 @@ Next we deploy our plugin to the QGIS Plugin directory
 
         pb_tool deploy
 
-        Deploying to ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/fiberplanitconvert
+        Deploying to /home/jachym/.local/share/QGIS/QGIS3/profiles/default/python/plugins/save_views
         Deploying will:
-          * Remove your currently deployed version
-          * Compile the ui and resource files
-          * Build the help docs
-          * Copy everything to your ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/fiberplanitconvert directory
-                        
+                * Remove your currently deployed version
+                * Compile the ui and resource files
+                * Build the help docs
+                * Copy everything to your
+                  /home/jachym/.local/share/QGIS/QGIS3/profiles/default/python/plugins/save_views
+                  directory
+
         Proceed? [y/N]: y
 
-.. tip:: Instead of deploying the plugin using ``pb_tool`` it could be
-   more flexible when developing the plugin to set up QGIS environment
-   in order to be able to install the plugin from original destination
-   without need of deployment.
+*********************
+Using plugin in place
+*********************
 
-   This can be done by setting up environmental variable
-   :envvar:`QGIS_PLUGINPATH` in :menuselection:`Settings --> Options
-   --> System`. Enable ``Use custom variables`` in ``Environment``
-   section and add a new variable: :envvar:`QGIS_PLUGINPATH`. This
-   variable should point to a root directory where the directory with
-   the plugin is located. *Restart* (close and open) QGIS and continue
-   with :ref:`installing the plugin <install>`.
+Instead of deploying the plugin using ``pb_tool`` it could be
+more flexible when developing the plugin to set up QGIS environment
+in order to be able to install the plugin from original destination
+without need of deployment.
+
+You can copy your plugin to your plugins directory. 
+
+But it may be better to add your plugins to the
+:envvar:`QGIS_PLUGINPATH` in :menuselection:`Settings --> Options
+--> System`. Enable ``Use custom variables`` in ``Environment``
+section and add a new variable: :envvar:`QGIS_PLUGINPATH`. This
+variable should point to a root directory where the directory with
+the plugin is located. *Restart* (close and open) QGIS and continue
+with :ref:`installing the plugin <install>`.
+
+
+.. figure:: images/qgis-pluginpath.svg
+   
+   Setting of the ``QGIS_PLUGINPATH`` variable.
+
 	 
 .. _install:
 
-*************************
-Installing plugin to QGIS
-*************************
+***********************
+Activate plugin in QGIS
+***********************
 
 Open QGIS and find the new plugin in the :menuselection:`Plugins -->
 Manage and Install Plugins...`. Check the checkbox to activate the
 plugin in QGIS.
 
-.. figure:: images/plugin_deploy.png
+.. figure:: images/save-views-enable.png
 
-        Activate newly created plugin in QGIS
+   Activate plugin Save Views.
 
 An icon of the plugin |new_plugin| appears in the toolbar as well as
 new menu selection in :menuselection:`Vector --> fibarplanitconvert
@@ -82,9 +99,10 @@ new menu selection in :menuselection:`Vector --> fibarplanitconvert
 
 When running it, new (empty) dialog will be open.
 
-.. figure:: images/plugin_running1.png
+.. _plugin-dlg:
 
-   Empty plugin dialog of the plugin.
+.. figure:: images/plugin-ui-template.png
+   :class: small
 
 *****
 Notes
