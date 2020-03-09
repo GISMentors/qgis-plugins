@@ -35,6 +35,7 @@ following sections:
    plugins/index
    publish_plugin
    supplementary/index
+   installation/index
 
 ..
    misc

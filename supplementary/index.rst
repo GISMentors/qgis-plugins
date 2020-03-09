@@ -7,4 +7,5 @@ Alternative plugins pool:
    :maxdepth: 1
 
    save_views
+   useful
 
