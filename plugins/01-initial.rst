@@ -46,7 +46,6 @@ and open the :file:`save_views_dockwidget_base.ui` file.
 
 
 .. figure:: ../images/qt_designer_01.png
-   :class: middle
 	   
       The dialogue is empty so far.
 

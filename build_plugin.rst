@@ -14,7 +14,6 @@ Build the plugin
     You should obtain readable help message
 
 .. figure:: images/pyrcc5-help.png
-        :class: medium
 
 .. note:: If you are on MS Windows, two scripts need to be executed before any
         attempts: ``py3_env`` and ``qt5_env``
