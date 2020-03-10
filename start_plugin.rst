@@ -9,7 +9,8 @@ we are going to fill the names for Python classes and module names.
 
         Initialization of new QGIS Plugin
 
-
+.. note:: Don't use ``.py`` (or any extensions) in the names.
+          
 In the next screen, fill longer description of the plugin.
 
 .. figure:: images/plugin_builder2.png
