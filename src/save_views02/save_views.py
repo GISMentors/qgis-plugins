@@ -250,7 +250,7 @@ class SaveViews:
 
          for feature in layer.getFeatures():
              layer.selectByIds([feature.id()])
-             self.iface.mapCanvas().setSelectionColor(QColor("transparent"));
+             self.iface.mapCanvas().setSelectionColor(QColor("transparent"))
              box = layer.boundingBoxOfSelected()
              self.iface.mapCanvas().setExtent(box)
              pixmap = QPixmap(self.iface.mapCanvas().mapSettings().outputSize().width(),
