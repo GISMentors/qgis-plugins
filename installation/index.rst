@@ -43,35 +43,38 @@ Install Qt Designer on Linux
 ============================
 
 On Linux, you should be able to use your favourite packaging tool, like
-``apt-get``
+:program:`apt`
 
 .. code-block:: bash
 
-        sudo apt-get install python3-pyqt5 libqt5designer5 python3-pyqt5
+        sudo apt install python3-pyqt5 libqt5designer5
         
 Install Qt Designer on Windows
 ==============================
 
-On the Windows platform, start the OSGeo4W installator, choose ``Advanced
-installation`` and search for the ``qt5-tools`` package.
+On MS Windows platform, start the OSGeo4W installator, choose
+``Advanced installation`` and search for the ``qt5-tools`` package.
 
 .. figure:: images/install-qt5-tools.png
    :class: middle
 
-Then you have to start the OSGeo4W shell and then you have to run the :file:`py3_env.bat` script, which will set all
-necessary environment variables.
+.. figure:: images/qt-designer-windows-start.png
+   :class: middle
+           
+   Qt Designer can be found in the start menu of Windows.
 
-.. code-block:: bash
+..
+  Then you have to start the OSGeo4W shell and then you have to run the
+  :file:`py3_env.bat` script, which will set all necessary environment
+  variables.
+
+  .. code-block:: bash
 
         c:\> c:\OSGeo4W64\bin\py3_env.bat
 
-.. figure:: images/osgeo4w-4.png
+   .. figure:: images/osgeo4w-4.png
    :class: middle
 
-Qt Designer can be found in the start menu of Windows.
-
-
-
-.. code-block:: bash
+   .. code-block:: bash
 
         c:\> c:\OSGeo4W64\bin\py3_env.bat
