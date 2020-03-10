@@ -5,13 +5,39 @@ Build the plugin
 .. important:: Make sure, where is ``pyrcc5`` the PyQt5 resource compiler
     available in your :env:`PATH`
 
+    You can test it by running
+        
+    .. code-block:: bash
+
+        pyrcc5 --help
+
+    You should obtain readable help message
+
+.. figure:: images/pyrcc5-help.png
+        :class: medium
+
+.. note:: If you are on MS Windows, two scripts need to be executed before any
+        attempts: ``py3_env`` and ``qt5_env``
+
+        .. code-block:: bash
+
+                c:\> py3_env
+                ...
+                c:\> qt5_env
+
+                c:\> pyrcc5 --help
+
+        .. figure:: images/pyrcc5-windows.png
+
+
+
 To build the plugin ``pb_tool`` must be available in the system. This
 package is available via PyPI service (using ``pip install``).
 
 .. note:: It might look as good idea to use standard ``make``, since
    Makefile is available too. This is considered deprecated option and
    should no longer be used. ``pb_tool`` is more complex build system
-   (and supports various opereting systems).
+   (and supports various operating systems).
 
 To install ``pb_tool``, just use
 
@@ -53,6 +79,10 @@ Next we deploy our plugin to the QGIS Plugin directory
                   directory
 
         Proceed? [y/N]: y
+
+.. note:: It seems, that ``pb_tool`` does require 7zip compression, which is not
+        available in OSGeo4W project - therefore the QGIS Plugin can not be
+        zipped. You will have to install it manually.
 
 *********************
 Using plugin in place

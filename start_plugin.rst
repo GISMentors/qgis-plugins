@@ -50,6 +50,14 @@ location in your computer.
 .. figure:: images/plugin_builder6.png
 
         Filling required URLs
+
+.. note:: On Microsoft Winows at this point, you may see error message about
+        ``pyrcc5`` script not being available in your system and therefore it
+        could not be compiled. Do not panic, we will compile the plugin manually later with
+        environemnt set up.
+
+        .. figure:: images/pyrcc5-error.png
+                :class: medium
         
 Final screen shows summary of the new plugin and QGIS environment settings as
 well as the next required steps.
