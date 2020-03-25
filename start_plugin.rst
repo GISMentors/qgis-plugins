@@ -2,14 +2,15 @@
 Start QGIS Plugin
 #################
 
-Start the ``Plugin Builder`` plugin and fill necessary inputs. In the first step,
-we are going to fill the names for Python classes and module names.
+Start the ``Plugin Builder`` plugin and fill necessary inputs. In the
+first step, we are going to specify name of Python class, module name,
+short description, etc.
 
 .. figure:: images/plugin_builder0.png
 
-        Initialization of new QGIS Plugin
+        Initialization of a new QGIS Plugin
 
-.. note:: Don't use ``.py`` (or any extensions) in the names.
+.. warning:: Don't use ``.py`` (or any extensions) in the module name.
           
 In the next screen, fill longer description of the plugin.
 
@@ -22,9 +23,9 @@ In the next screen, set visual appearance of the plugin. We will use
 
 .. figure:: images/plugin_builder2.png
 
-   Choosing visual representation of new plugin
+   Choosing visual representation of a new plugin
    
-There ware three possibilities of the dialog:
+There are three options:
 
 * Tool button with dialog
 * Tool button with dockwidget
@@ -35,26 +36,25 @@ generate for us. We shall leave all checked.
 
 .. figure:: images/plugin_builder3.png
 
-   Helper scripts to be generated.
+   Helper metafiles to be generated.
 
-..
-  .. figure:: images/plugin_builder4.png
+In the next step fill important URLs which is important for later
+publication of a plugin.
 
-        Picking required metafiles
-
-In the next step you need to fill important URLs. It is good to fill the URLs
-for later publications.
-
-.. figure:: images/plugin_builder5.png
+.. figure:: images/plugin_builder4.png
 
         Filling required URLs
 
 In the last step, we pick the location of the new created plugin. You can pick any
 location in your computer.
 
+.. figure:: images/plugin_builder5.png
+
+   Set output folder for a plugin.
+
 .. figure:: images/plugin_builder6.png
 
-        Filling required URLs
+    Summary
 
 .. note:: On Microsoft Windows at this point, you may see error message about
    :program:`pyrcc5` script not being available in your system and therefore it
