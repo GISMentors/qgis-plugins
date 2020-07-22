@@ -1,19 +1,17 @@
 ***************
 QGIS and Python
 ***************
-
-.. todo:: Rewrite to English.
           
-Od verze 0.9 programu QGIS lze používat programovací jazyk Python pro přístup k
-některým funkcím. Python lze v kombinaci s QGISem používat v následujcích
-situacích:
+From QGIS 0.9, we can use Python programming language. Through that, we have access to some functions that combine Python and QGIS. 
 
-* Automatický skript při startu QGIS
-* Použití interkativní konzole a zadávání příkazů napřímo
-* Tvorba a použití zásuvných modulů
-* Tvorba vlastních aplikací postavených na knihovných QGIS
+These functions can be used in these situations:
 
-Dále je možné tvořit zásuvné moduly pro QGIS server. 
+* Creating an automated script that starts on launch of QGIS
+* Use of interactive console and direct commands
+* Creating and using custom plugins
+* Creating custom applications built on QGIS libraries
+
+We can also create plugins for QGIS server. 
 
 
 .. toctree::
