@@ -1,27 +1,27 @@
-=================================
-Launching code on startup of QGIS
-=================================
+=============================
+Spuštění kódu při startu QGIS
+=============================
 
-If we launch some program while starting QGIS, some code may be executed.
-We can configure it by using :envvar:`PYQGIS_STARTUP`
-or by creating a script in Python home directory for QGIS.
-This forlder is usually located in:
+Při spuštění nějakého programu při startu programu QGIS se může vykonat určitý
+kód. To nastavíme buď za použití proměnné prostředí :envvar:`PYQGIS_STARTUP`
+nebo tím, že vytvoříme skript v domovské složce Pythonu pro QGIS, což je 
 
-* On Linux `.local/share/QGIS/QGIS3/`
-* On Windows: `AppDataRoamingQGISQGIS3profilesdefault/python`
-* On macOS: `Library/Application Support/QGIS/QGIS3/profiles/default`
+* na operačním systému Linux `.local/share/QGIS/QGIS3/`
+* na Windows: `AppDataRoamingQGISQGIS3profilesdefault/python`
+* na macOS: `Library/Application Support/QGIS/QGIS3/profiles/default`
 
-After you locate the correct directory, create a :file:`startup.py`.
-This script will run automatically on startup. 
+se jménem :file:`startup.py`. Ten bude automaticky vykonán při spuštění.
 
-.. note:: As you can see above, path to this directory is different on every operation system. 
-	To locate it correctly, open:
-        :menuselection:`Plugins --> Python console` and type this code:
- `QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)`
-This code should show you default path to that directory.
-We can also enhance it and insert more parameters. 
-We can not only locate desired directory, but also check presence of required modules.
+.. note:: Výchozí adresář pro umístění souboru `startup.py` se může na každém
+        systému měnit. Pro ověření správného umístění otevřete 
+        :menuselection:`Zásuvné moduly --> Python konzole` a  po vložení kódu
+        `QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)` se
+        vám výchozí cesty vypíší.
+
+Do tohoto skriptu můžeme nastavit například proměnné prostředí nebo zkontrolovat
+přítomnost potřebných modulů:
 
 .. literalinclude:: ../scripts/startup.py
 
-Script is then executed on QGIS startup. Thanks to that, our required modules and working environment are set up and ready to use.
+Skript je vykonán při startu QGIS a veškeré potřebné moduly a nastavení
+prostředí by mělo být hotové.

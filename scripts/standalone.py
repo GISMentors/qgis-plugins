@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 
-# Minimalistic script, that initializes and prepares QGIS libraries
-# for use
+# Minimalistický skript, který inicializuje knihovny QGIS a připraví je k
+# použití
 
 from qgis.core import *
 
-# But first, we have to setup a correct path to QGIS
+# Nejprve musíme nastavit cestu k instalaci QGIS
 QgsApplication.setPrefixPath("/usr/local/", True)
 
-# Next, we create QGIS instance. Second argument will specify,
-# if we are creating app with graphical interface or not.
+# vytvoříme instanci aplikace QGIS. Druhý argument nastavuje, jestli se bude
+# jednat o aplikaci využívající grafické rozhraní nebo ne
 qgs = QgsApplication([], False)
 
-# loading data sources
+# načtení poskytovatelů dat
 qgs.initQgis()
 
 #
-# Here comes your code for app built on QGIS libraries.
+# Na toto místo přijde vlastní kód aplikace, využívající knihovnu QGIS
 #
 
-# At the end of your program, you need to write exitQgis(). This command will deregister
-# data sources, providers and erase layers from computer memory.
+# Na konci programu je potřeba zavolat exitQgis(), aby došlo k odregistrovaná
+# poskytovatelů dat a vymazání vrstev z paměti počítače
 qgs.exitQgis()

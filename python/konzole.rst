@@ -12,63 +12,65 @@
    :width: 1.5em
 
 ====================
-Interactive console
+Interaktivní konzole
 ====================
 
-Whether you use MS Windows or Linux, you should have `QGIS
-<http://training.gismentors.eu/qgis-zacatecnik/instalace/index.html>`_  installed with Python console. We will use it now to determine system version.
+Ať už na MS Windows nebo na systému Linux, měli byste mít v tuto chvíli
+`nainstalovaný QGIS
+<http://training.gismentors.eu/qgis-zacatecnik/instalace/index.html>`_ a v něm
+si můžeme spustit consoli Pythonu a zjistit verzi systému.
 
-:menuselection:`Plugins --> Python console` (:kbd:`Ctrl+Alt+P`). This should open a new window with interactive console.
+
+:menuselection:`Zásuvné moduly --> Python konzole` (:kbd:`Ctrl+Alt+P`). Otevře se nové okno, ve
+kterém můžeme rovnou začát používat aplikacení rozhraní QGIS.
 
 .. figure:: images/console.png
 
-    Starting Python console
+    Spuštění Python konzole
 
 
-After you open Python console, you should see these buttons:
+Interaktivní konzole obsahuje v záhlaví v panelu nástrojů následující funkce:
 
 |clearConsole|
-    Clears window contents and deletes all displayed text
+    Vyčistí obsah okna, smaže veškerý zobrazený text
 |runConsole|
-    Run command. You can use this button or just simply press
+    Spustí zadaný příkaz, alternativně můžete prostě stisknout klávesu
     :kbd:`Enter`
 |showEditorConsole|
-    Launches a text editor. You can edit your code through it
+    Spustí editor programového kódu
 |settingsConsole|
-    Advanced settings of console and editor
+    Spustí podrobnější nastavení konzole a editoru
 |helpConsole|
-    This will launch web browser with help manual
+    Spustí nápovědu pro konzoli v okně webového prohlížeče
 
-.. todo:: Description |classConsole| - valid only for 3.0.2/master
+.. todo:: Popis |classConsole| - platný pouze pro 3.0.2/master
 
-Python console gives us option to write code more interactively. 
-It automatically changes colors for different types of syntax. 
-You can also save your code to external file and it shows quick helping tips.
-When you press :kbd:`Ctrl-Alt-Space`, it will automatically insert commands.
-To see history of commands, press :kbd:`Ctrl-Shift-Space`. 
+Konzole nám umožní psát interkativně kód, bude nám přehledně obarvovat syntaxi,
+umožní nám napsaný kód uložit do externího souboru, zpřístupní nám rychle
+nápovědu. Stisknutím :kbd:`Ctrl-Alt-Mezera` nám bude automaticky doplňovat
+příkazy a :kbd:`Ctrl-Shift-Mezera` zpřístupní jejich histori.
 
-Typing a command:
+Napsáním příkazu 
 
 .. code-block:: python
 
     >>> _pyqgis
 
-Will display documentation for Python in QGIS as a new tab in web browser.
+Se zobrazí dokumentace k použití Pythonu v QGIS.
 
 .. code-block:: python
 
     >>> _api
 
-This command will also display documentation, but just for Python.
+Zobrazí dokumentaci k aplikačnímu rozhraní QGIS.
 
 Editor
 ------
 
-Built-in code editor can be turned on by clicking on icon |showEditorConsole|.
-Automatic fill in function (:kbd:`Ctrl+Space`) can be very useful while writing a code.
-To check code syntax, press (:kbd:`Ctrl+4`).
-Another useful functions are search in code and inspect code.
+Vestavěný editor kódu spustíte kliknutím na ikonu |showEditorConsole|. Při psaní
+programu může být užitečná funkce automatického doplňování (:kbd:`Ctrl+Mezera`),
+kontrola syntaxe (:kbd:`Ctrl+4`), vyhledávání v kódu a inspektor kódu.
 
 .. figure:: images/editor.png
 
-    Built-in code editor
+    Vestavěný editor kódu
