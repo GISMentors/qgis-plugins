@@ -1,15 +1,15 @@
-# příklad souboru ~/.local/share/QGIS/QGIS3/startup.py
+# file example ~/.local/share/QGIS/QGIS3/startup.py
 
 #
-# přídání vlastní cesty  k Python modulům
+# adding custom path to Python plugins
 #
 import sys
-sys.path.append("/home/user/python/moduly")
+sys.path.append("/home/user/python/plugins")
 
 #
-# aktivace vlastního Virtualenv z Pythonu
+# activation of your Virtualenv
 #
-activate_this_file = "/cesta/k/virtualenv/bin/activate_this.py"
+activate_this_file = "/path/to/virtualenv/bin/activate_this.py"
 exec(
     compile(
         open(activate_this_file, "rb").read(),
@@ -20,16 +20,16 @@ exec(
 
 
 #
-# případná instalace chybějících balíků
+# installation of missing packages
 #
 import pip
 pip.main(['install', 'some_package'])
 
 #
-# ověření přítomnosti balíků
+# checking presence of the packages
 #
 try:
     import fiona
-    print("Vše v pořádku")
+    print("Everything is okay")
 except ImportError as e:
-    print("Fiona není nainstalována")
+    print("Fiona is not installed")
