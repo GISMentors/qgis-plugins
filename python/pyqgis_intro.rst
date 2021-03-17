@@ -1,10 +1,7 @@
 PyQGIS introduction
 ===================
 
-Built-in QGIS Python programming-related tools:
-
-#. Python console
-#. Built-in Python editor
+Let's start with simple tasks.
 
 First steps
 -----------
@@ -96,15 +93,19 @@ Script to `download <../_static/scripts/pyqgis_save_0.py>`__.
 .. task:: Improvements
 
    * check if input layer found (see line :lcode:`1`)
-   * check for writter's errors (see `cookbook example <https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter>`__)
+   * check for writter's errors (see `cookbook example
+     <https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter>`__)
 
 Editing vector features
 ^^^^^^^^^^^^^^^^^^^^^^^
 
+Let's delete all features (ice cream shows) located more than 1km from
+specified point.
+
 .. task::
    * select features in distance of 1km from current position (`14.3881100E, 50.1041200N <https://www.openstreetmap.org/way/99013221>`__), see lines :lcode:`8` and :lcode:`21`
     * point of interest must be transformed into layer's CRS (:lcode:`10-13`)
-    * area of interest is defined by rect on lines :lcode:`15-19`
+    * area of interest is defined by rectangle on lines :lcode:`15-19`
    * invert selection on line :lcode:`24`
    * delete selected features on line :lcode:`27`
     * note that layer must be switched to edinging mode, it can be

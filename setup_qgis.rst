@@ -10,6 +10,7 @@ Two helper plugins need to be installed:
 #. Search for ``Plugin Reloader`` and install the plugin
 
 .. figure:: images/plugin_builder_install.png
-
+   :class: middle
+           
    Install Plugin Builder 3.
 

@@ -45,7 +45,7 @@ publication of a plugin.
 
         Filling required URLs
 
-In the last step, we pick the location of the new created plugin. You can pick any
+In the last step, we pick the location of the newly created plugin. You can pick any
 location in your computer.
 
 .. figure:: images/plugin_builder5.png
@@ -74,15 +74,15 @@ well as the next required steps.
 
 Important information are:
 
-#. Location of the new created plugin
+#. Location of the newly created plugin
 #. Default location of all QGIS plugins
 #. *Implementation* file is called :file:`save_views.py`
 #. GUI modification shall happen in Qt Designer using the
    :file:`save_views_dialog_base.ui` file
-#. Next step is to use `pb_tool` for the plugin management
+#. Next step is to use :program:`pb_tool` for the plugin management
 
 There is also information about folders, where QGIS is looking for
 installed plugins. On Linux, this typically is
 :file:`$HOME/.local/share/QGIS/QGIS3/profiles/default/python/plugins`.
-Windows it may be
+On MS Windows it may be
 :file:`%APPDATA%\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins`.

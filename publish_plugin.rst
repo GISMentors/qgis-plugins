@@ -9,7 +9,7 @@ steps which must be performed.
 Create zip package
 ==================
 
-A zip package can be created by ``pb_tool`` (see
+A zip package can be created by :program:``pb_tool`` (see
 :doc:`build_plugin`). Go to your plugin directory and type:
 
 .. code-block:: bash
@@ -33,8 +33,8 @@ Official QGIS plugin repository
 
 You can publish your plugin in `official QGIS Plugin repository
 <https://plugins.qgis.org/plugins/>`__. Plugin must fulfill basic
-requirements (GNU GPL license, English-friendly, documentation
-included). You can upload the plugin at
+requirements (GNU GPL license, documentation included). You can upload
+the plugin at
 https://plugins.qgis.org/accounts/login/?next=/plugins/add/. Note that
 it can take few days when your plugin will be approved by the
 moderators.

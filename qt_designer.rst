@@ -2,15 +2,15 @@
 Qt Designer
 ###########
 
-In order to make some GUI adjustments, it's good to use `Qt Designer <https://doc.qt.io/qt-5/qtdesigner-manual.html>`_ tool.
+In order to make some UI adjustments, it's good to use :ref:`Qt
+Designer <qtdesigner>` tool.
 
-To adjust our file basic plugin dialog, we need to open the  designer and load
-the :file:`fiberplanitconvert_dialog_base.ui` file in it.
+Let's open Qt Designer and load :file:`save_view_dockwidget_base.ui`.
 
 .. figure:: images/qt_designer_01.png
    :class: large
 	   
-   File `fibarplanitconvert_dialog_base.ui` open by Qt Designer.
+   File `save_view_dockwidget_base.ui` open by Qt Designer.
 
 Widget Box 
         Selection of GUI elements (widgets)

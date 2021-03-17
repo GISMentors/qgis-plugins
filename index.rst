@@ -7,20 +7,20 @@ QGIS Plugins
       :width: 140px
       :align: left
 
-Python support was first introduced in QGIS 0.9. Today, there are
-several ways to use Python in QGIS Desktop, they are covered in the
+Python support was introduced in QGIS 0.9 (2007). Today, there are
+several ways how to use Python in QGIS Desktop. They are covered in the
 following sections:
 
-* Issue commands in the Python console within QGIS
+* Enter commands in the QGIS Python interactive console
 * Create and use plugins
 * Automatically run Python code when QGIS starts
 * Create custom applications based on the QGIS API
 
 (source: `PyQGIS Developer Cookbook
-<https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/intro.html>`__)
+<https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/intro.html>`__)
 
-.. important:: All examples are QGIS 3.10 LTR compatible. Python 3.x and Qt
-   5.x required. Functionality in other QGIS versions is not
+.. important:: All examples are QGIS 3.16 LTR compatible. Python 3 and
+   Qt 5 required. Functionality in other QGIS versions is not
    guaranteed.
    
 .. toctree::
@@ -46,13 +46,13 @@ Important links
 
 * http://qgis.org
 * API
- * https://qgis.org/pyqgis/3.10/ (Python)
- * https://qgis.org/api/3.10/ (C++ original)
+ * https://qgis.org/pyqgis/3.16/ (Python)
+ * https://qgis.org/api/3.16/ (C++)
 
 .. important::
           
    `Cookbook
-   <https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/>`__
+   <https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/>`__
    **(very useful!!!)**
 
 About
