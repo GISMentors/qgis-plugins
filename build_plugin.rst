@@ -9,7 +9,7 @@ Build the plugin
         
     .. code-block:: bash
 
-        pyrcc5 --help
+        pyrcc5 -help
 
     You should obtain readable help message
 
@@ -25,7 +25,7 @@ Build the plugin
 
                 c:\> qt5_env
 
-                c:\> pyrcc5 --help
+                c:\> pyrcc5 -help
 
         .. figure:: images/pyrcc5-windows.png
 
