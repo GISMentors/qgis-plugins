@@ -13,10 +13,13 @@ These functions can be used in the situations below:
 
 We can also create plugins for QGIS server. 
 
+**Topics**
+
 .. toctree::
    :maxdepth: 2
 
    startup
    console
    standalone
+   processing
    pyqgis_intro
