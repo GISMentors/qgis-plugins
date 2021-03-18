@@ -59,9 +59,18 @@ First we compile UI files
 
 .. code-block:: bash
 
-        pb_tool compile
+   cd /path/to/save_views
+   pb_tool compile
 
+.. note:: If you have no administrator permission on MS Windows than
+   you can run :program:`pb_tool` by this command:
+
+   .. code-block:: bat
+
+      %homepath%\AppData\Roaming\Python\Python37\Scripts\pb_tool compile
 ..         
+
+..
  Next we deploy our plugin to the QGIS Plugin directory
 
  .. code-block:: bash
