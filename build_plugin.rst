@@ -108,7 +108,11 @@ variables`` in ``Environment`` section and add a new variable:
 directory where the plugin is located. *Restart* (close and open) QGIS
 and continue with :ref:`installing the plugin <install>`.
 
-
+.. important:: QGIS doesn't allow in the path defined by
+   :envvar:`QGIS_PLUGINPATH` non-ascii characters. If your path
+   contains such characters than consider to rename directories in the
+   path which causing this issue.
+               
 .. figure:: images/qgis-pluginpath.svg
    
    Setting of the ``QGIS_PLUGINPATH`` variable.

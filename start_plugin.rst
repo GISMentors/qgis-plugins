@@ -48,6 +48,8 @@ publication of a plugin.
 In the last step, we pick the location of the newly created plugin. You can pick any
 location in your computer.
 
+.. note:: Avoid paths containing non-ascii characters.
+
 .. figure:: images/plugin_builder5.png
 
    Set output folder for a plugin.
@@ -70,7 +72,6 @@ well as the next required steps.
 .. figure:: images/plugin_builder7.png
 
         Plugin summary
-
 
 Important information are:
 
