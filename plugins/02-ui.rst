@@ -43,6 +43,12 @@ Note, that we had to import QGIS Python modules
         :linenos:
         :lines: 29-32
 
+.. tip:: For testing purpose we can hardcode output path
+
+   .. code-block:: python
+
+      self.dockwidget.output_dir.setFilePath("/tmp/output")
+
 Image save function
 -------------------
 

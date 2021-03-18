@@ -28,8 +28,8 @@ from qgis.PyQt.QtWidgets import QAction
 from .resources import *
 from PyQt5.QtGui import QColor, QPixmap
 from qgis.utils import iface
-from qgis.core import *
-from qgis.gui import *
+from qgis.core import QgsMapLayerProxyModel
+from qgis.gui import QgsFileWidget
 
 # Import the code for the DockWidget
 from .save_views_dockwidget import SaveViewsDockWidget
