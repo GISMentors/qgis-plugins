@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>PyQGIS introduction &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setup QGIS" href="../setup_qgis.html" />
+    <link rel="prev" title="Calling processing tools from Python" href="processing.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="processing.html" title="Calling processing tools from Python"
+             accesskey="P">previous</a> |
+          <a href="../setup_qgis.html" title="Setup QGIS"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pyqgis-introduction">
+<h1>PyQGIS introduction<a class="headerlink" href="#pyqgis-introduction" title="Permalink to this heading">¶</a></h1>
+<p>Let’s start with simple tasks.</p>
+<section id="first-steps">
+<h2>First steps<a class="headerlink" href="#first-steps" title="Permalink to this heading">¶</a></h2>
+<section id="layers-access">
+<h3>Layers access<a class="headerlink" href="#layers-access" title="Permalink to this heading">¶</a></h3>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>list of layers determined from current project (even unsaved) on line <span class="lcode">1</span></p></li>
+<li><p>print layer name and feature count for vector layers (<span class="lcode">3</span>)</p></li>
+<li><p>for other layer types print only name (<span class="lcode">5</span>)</p></li>
+</ul>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos">1</span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+</span><span class="linenos">2</span>    <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QgsMapLayer</span><span class="o">.</span><span class="n">VectorLayer</span><span class="p">:</span>
+<span class="hll"><span class="linenos">3</span>        <span class="nb">print</span> <span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">layer</span><span class="o">.</span><span class="n">featureCount</span><span class="p">())</span>
+</span><span class="linenos">4</span>    <span class="k">else</span><span class="p">:</span>
+<span class="hll"><span class="linenos">5</span>        <span class="nb">print</span> <span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+</span></pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_layers_access_0.py">download</a>.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/qgis_editor.png" class="middle" src="../_images/qgis_editor.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Example of running simple script from QGIS built-in editor.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>skip disabled layers on line <span class="lcode">2</span></p></li>
+<li><p>process only vector layers with multipolygon geometry type (<span class="lcode">5</span>)</p></li>
+<li><p>loop over features on line <span class="lcode">9</span></p></li>
+<li><p>get feature geometry on line <span class="lcode">10</span></p></li>
+<li><p>get attribute value <code class="docutils literal notranslate"><span class="pre">nazev</span></code> (name in Czech) if exists (<span class="lcode">12</span>)</p></li>
+<li><p>print feature info (fid, name, area in hectares - assuming map units
+meters), see line <span class="lcode">16</span></p></li>
+</ul>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<span class="hll"><span class="linenos"> 2</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span><span class="o">.</span><span class="n">findLayer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span><span class="p">())</span><span class="o">.</span><span class="n">itemVisibilityChecked</span><span class="p">():</span>
+</span><span class="linenos"> 3</span>        <span class="k">continue</span>
+<span class="linenos"> 4</span>
+<span class="hll"><span class="linenos"> 5</span>    <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QgsMapLayer</span><span class="o">.</span><span class="n">VectorLayer</span> <span class="ow">or</span> <span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">:</span>
+</span><span class="linenos"> 6</span>        <span class="k">continue</span>
+<span class="linenos"> 7</span>  
+<span class="linenos"> 8</span>    <span class="nb">print</span> <span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">layer</span><span class="o">.</span><span class="n">featureCount</span><span class="p">())</span>
+<span class="hll"><span class="linenos"> 9</span>    <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+</span><span class="hll"><span class="linenos">10</span>        <span class="n">geom</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+</span><span class="linenos">11</span>        <span class="k">try</span><span class="p">:</span>
+<span class="hll"><span class="linenos">12</span>            <span class="n">nazev</span> <span class="o">=</span> <span class="n">feat</span><span class="p">[</span><span class="s1">&#39;nazev&#39;</span><span class="p">]</span>
+</span><span class="linenos">13</span>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="linenos">14</span>            <span class="n">nazev</span> <span class="o">=</span> <span class="s1">&#39;no name defined&#39;</span>
+<span class="linenos">15</span>            
+<span class="hll"><span class="linenos">16</span>        <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1"> </span><span class="si">{2:.1f}</span><span class="s1"> ha&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feat</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="n">nazev</span><span class="p">,</span> <span class="n">geom</span><span class="o">.</span><span class="n">area</span><span class="p">()</span><span class="o">/</span><span class="mf">1e4</span><span class="p">))</span>
+</span><span class="linenos">17</span>        
+</pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_layers_access_1.py">download</a>.</p>
+</section>
+</section>
+<section id="vector-data-features-access-and-editing">
+<h2>Vector data, features access and editing<a class="headerlink" href="#vector-data-features-access-and-editing" title="Permalink to this heading">¶</a></h2>
+<p>Sample data (ice cream shops in Czech Republic downloaded from
+OpenStreetMap as points only): <a class="reference external" href="../_static/data/ice_cream.csv">ice_cream.csv</a>.</p>
+<section id="adding-csv-based-layers">
+<h3>Adding CSV-based layers<a class="headerlink" href="#adding-csv-based-layers" title="Permalink to this heading">¶</a></h3>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>load layer without geometry (as table) (see lines <span class="lcode">2</span> and <span class="lcode">5</span>)</p></li>
+<li><p>add table layer into layer tree (<span class="lcode">6</span>)</p></li>
+</ul>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;/home/martin/git/gismentors/yungo-plugins/_static/data/ice_cream.csv&#39;</span>
+<span class="hll"><span class="linenos">2</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;file:///</span><span class="si">{}</span><span class="s1">?delimiter=,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="hll"><span class="linenos">5</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;delimitedtext&#39;</span><span class="p">)</span>
+</span><span class="linenos">6</span>
+<span class="hll"><span class="linenos">7</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_csv_layer_0.py">download</a>.</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>geometry built from longitute and latitude</p></li>
+<li><p>set spatial reference system to <a class="reference external" href="http://epsg.io/4326">EPSG:4326</a></p></li>
+<li><p>add map layer into layer tree</p></li>
+</ul>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;/home/martin/git/gismentors/yungo-plugins/_static/data/ice_cream.csv&#39;</span>
+<span class="hll"><span class="linenos">2</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;file:///</span><span class="si">{}</span><span class="s1">?delimiter=,&amp;xField=lon&amp;yField=lat&amp;crs=epsg:4326&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">5</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;delimitedtext&#39;</span><span class="p">)</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_csv_layer_1.py">download</a>.</p>
+</section>
+<section id="save-layer-into-file-based-gis-format">
+<h3>Save layer into file-based GIS format<a class="headerlink" href="#save-layer-into-file-based-gis-format" title="Permalink to this heading">¶</a></h3>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>reproject to S-JTSK (<a class="reference external" href="http://epsg.io/5514">EPSG:5514</a>) (target CRS set on line <span class="lcode">4</span>)</p></li>
+<li><p>save layer into Esri Shapefile format (this task performed on
+lines <span class="lcode">5-7</span>)</p></li>
+</ul>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos"> 1</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s1">&#39;ice_cream&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">shp_file</span> <span class="o">=</span> <span class="s2">&quot;/tmp/ice_cream.shp&quot;</span>
+<span class="hll"><span class="linenos"> 4</span><span class="n">crs</span> <span class="o">=</span> <span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s2">&quot;EPSG:5514&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos"> 5</span><span class="n">QgsVectorFileWriter</span><span class="o">.</span><span class="n">writeAsVectorFormat</span><span class="p">(</span>
+</span><span class="hll"><span class="linenos"> 6</span>    <span class="n">layer</span><span class="p">,</span> <span class="n">shp_file</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos"> 7</span>    <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="n">driverName</span><span class="o">=</span><span class="s2">&quot;ESRI Shapefile&quot;</span><span class="p">,</span> <span class="n">destCRS</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+</span><span class="linenos"> 8</span>                                        
+<span class="linenos"> 9</span><span class="n">layer_shp</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">shp_file</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="nb">print</span> <span class="p">(</span><span class="n">layer_shp</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_save_0.py">download</a>.</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Improvements</p>
+<ul class="simple">
+<li><p>check if input layer found (see line <span class="lcode">1</span>)</p></li>
+<li><p>check for writter’s errors (see <a class="reference external" href="https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter">cookbook example</a>)</p></li>
+</ul>
+</div>
+</section>
+<section id="editing-vector-features">
+<h3>Editing vector features<a class="headerlink" href="#editing-vector-features" title="Permalink to this heading">¶</a></h3>
+<p>Let’s delete all features (ice cream shows) located more than 1km from
+specified point.</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<ul class="simple">
+<li><p>select features in distance of 1km from current position (<a class="reference external" href="https://www.openstreetmap.org/way/99013221">14.3881100E, 50.1041200N</a>), see lines <span class="lcode">8</span> and <span class="lcode">21</span></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>point of interest must be transformed into layer’s CRS (<span class="lcode">10-13</span>)</p></li>
+<li><p>area of interest is defined by rectangle on lines <span class="lcode">15-19</span></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>invert selection on line <span class="lcode">24</span></p></li>
+<li><p>delete selected features on line <span class="lcode">27</span></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>note that layer must be switched to edinging mode, it can be
+done eg. by triggers, see lines <span class="lcode">26,28</span></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">shp_file</span> <span class="o">=</span> <span class="s2">&quot;/tmp/ice_cream.shp&quot;</span>
+<span class="linenos"> 2</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">shp_file</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">x</span> <span class="o">=</span> <span class="mf">14.3881100</span>
+<span class="linenos"> 7</span><span class="n">y</span> <span class="o">=</span> <span class="mf">50.1041200</span>
+<span class="hll"><span class="linenos"> 8</span><span class="n">geom</span> <span class="o">=</span> <span class="n">QgsGeometry</span><span class="o">.</span><span class="n">fromPointXY</span><span class="p">(</span><span class="n">QgsPointXY</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span><span class="linenos"> 9</span>
+<span class="hll"><span class="linenos">10</span><span class="n">p_crs</span> <span class="o">=</span> <span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">11</span><span class="n">trans</span> <span class="o">=</span> <span class="n">QgsCoordinateTransform</span><span class="p">(</span>
+</span><span class="hll"><span class="linenos">12</span>    <span class="n">p_crs</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">crs</span><span class="p">(),</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">())</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">geom</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+</span><span class="linenos">14</span>
+<span class="hll"><span class="linenos">15</span><span class="n">p</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+</span><span class="hll"><span class="linenos">16</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">1500</span>
+</span><span class="hll"><span class="linenos">17</span><span class="n">p1</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="n">offset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">18</span><span class="n">p2</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">19</span><span class="n">aoi</span> <span class="o">=</span> <span class="n">QgsRectangle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+</span><span class="linenos">20</span>
+<span class="hll"><span class="linenos">21</span><span class="n">layer</span><span class="o">.</span><span class="n">selectByRect</span><span class="p">(</span><span class="n">aoi</span><span class="p">)</span>
+</span><span class="linenos">22</span><span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">selectedFeatures</span><span class="p">()))</span>
+<span class="linenos">23</span>
+<span class="hll"><span class="linenos">24</span><span class="n">layer</span><span class="o">.</span><span class="n">invertSelection</span><span class="p">()</span>
+</span><span class="linenos">25</span>
+<span class="hll"><span class="linenos">26</span><span class="n">iface</span><span class="o">.</span><span class="n">actionToggleEditing</span><span class="p">()</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span>
+</span><span class="hll"><span class="linenos">27</span><span class="n">iface</span><span class="o">.</span><span class="n">actionDeleteSelected</span><span class="p">()</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span>
+</span><span class="hll"><span class="linenos">28</span><span class="n">iface</span><span class="o">.</span><span class="n">actionToggleEditing</span><span class="p">()</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>Script to <a class="reference external" href="../_static/scripts/pyqgis_editing_0.py">download</a>.</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Compare with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">deleteSelectedFeatures</span><span class="p">()</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QGIS and Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="startup.html">Launching code on startup of QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">Interactive console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standalone.html">Creating custom applications built on QGIS libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Calling processing tools from Python</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PyQGIS introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="processing.html" title="Calling processing tools from Python"
+              >previous</a> |
+            <a href="../setup_qgis.html" title="Setup QGIS"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

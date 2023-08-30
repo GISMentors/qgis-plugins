@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Start QGIS Plugin &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gismentors.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build the plugin" href="build_plugin.html" />
+    <link rel="prev" title="Setup QGIS" href="setup_qgis.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="setup_qgis.html" title="Setup QGIS"
+             accesskey="P">previous</a> |
+          <a href="build_plugin.html" title="Build the plugin"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="start-qgis-plugin">
+<h1>Start QGIS Plugin<a class="headerlink" href="#start-qgis-plugin" title="Permalink to this heading">¶</a></h1>
+<p>Start the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin and fill necessary inputs. In the
+first step, we are going to specify name of Python class, module name,
+short description, etc.</p>
+<figure class="align-center" id="id1">
+<img alt="_images/plugin_builder0.png" src="_images/plugin_builder0.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Initialization of a new QGIS Plugin</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t use <code class="docutils literal notranslate"><span class="pre">.py</span></code> (or any extensions) in the module name.</p>
+</div>
+<p>In the next screen, fill longer description of the plugin.</p>
+<figure class="align-center" id="id2">
+<img alt="_images/plugin_builder1.png" src="_images/plugin_builder1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Filling longer description text</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In the next screen, set visual appearance of the plugin. We will use
+<cite>Tool button with dock widget</cite>.</p>
+<figure class="align-center" id="id3">
+<img alt="_images/plugin_builder2.png" src="_images/plugin_builder2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Choosing visual representation of a new plugin</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>There are three options:</p>
+<ul class="simple">
+<li><p>Tool button with dialog</p></li>
+<li><p>Tool button with dockwidget</p></li>
+<li><p>Processing provider (see <a class="reference external" href="http://training.gismentors.eu/qgis-pokrocily/geoprocessing/index.html">QGIS Advanced course</a>)</p></li>
+</ul>
+<p>In the next step, we shell check all the metafiles, the builder will
+generate for us. We shall leave all checked.</p>
+<figure class="align-center" id="id4">
+<img alt="_images/plugin_builder3.png" src="_images/plugin_builder3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Helper metafiles to be generated.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In the next step fill important URLs which is important for later
+publication of a plugin.</p>
+<figure class="align-center" id="id5">
+<img alt="_images/plugin_builder4.png" src="_images/plugin_builder4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Filling required URLs</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In the last step, we pick the location of the newly created plugin. You can pick any
+location in your computer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Avoid paths containing non-ascii characters.</p>
+</div>
+<figure class="align-center" id="id6">
+<img alt="_images/plugin_builder5.png" src="_images/plugin_builder5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Set output folder for a plugin.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<img alt="_images/plugin_builder6.png" src="_images/plugin_builder6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Summary</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Microsoft Windows at this point, you may see error message about
+<strong class="program">pyrcc5</strong> script not being available in your system and therefore it
+could not be compiled. Do not panic, we will compile the plugin manually later with
+environment set up.</p>
+<figure class="align-center">
+<img alt="_images/pyrcc5-error.png" class="medium" src="_images/pyrcc5-error.png" />
+</figure>
+</div>
+<p>Final screen shows summary of the new plugin and QGIS environment settings as
+well as the next required steps.</p>
+<figure class="align-center" id="id8">
+<img alt="_images/plugin_builder7.png" src="_images/plugin_builder7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Plugin summary</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Important information are:</p>
+<ol class="arabic simple">
+<li><p>Location of the newly created plugin</p></li>
+<li><p>Default location of all QGIS plugins</p></li>
+<li><p><em>Implementation</em> file is called <code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code></p></li>
+<li><p>GUI modification shall happen in Qt Designer using the
+<code class="file docutils literal notranslate"><span class="pre">save_views_dialog_base.ui</span></code> file</p></li>
+<li><p>Next step is to use <strong class="program">pb_tool</strong> for the plugin management</p></li>
+</ol>
+<p>There is also information about folders, where QGIS is looking for
+installed plugins. On Linux, this typically is
+<code class="file docutils literal notranslate"><span class="pre">$HOME/.local/share/QGIS/QGIS3/profiles/default/python/plugins</span></code>.
+On MS Windows it may be
+<code class="file docutils literal notranslate"><span class="pre">%APPDATA%\Roaming\QGIS\QGIS3\profiles\default\python\plugins</span></code>.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="setup_qgis.html" title="Setup QGIS"
+              >previous</a> |
+            <a href="build_plugin.html" title="Build the plugin"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

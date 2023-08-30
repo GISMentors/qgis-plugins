@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Launching code on startup of QGIS &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interactive console" href="console.html" />
+    <link rel="prev" title="QGIS and Python" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="QGIS and Python"
+             accesskey="P">previous</a> |
+          <a href="console.html" title="Interactive console"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="launching-code-on-startup-of-qgis">
+<h1>Launching code on startup of QGIS<a class="headerlink" href="#launching-code-on-startup-of-qgis" title="Permalink to this heading">¶</a></h1>
+<p>In this section we will describe how to launch specific Python code
+when QGIS is starting. It can configured it by using
+<span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYQGIS_STARTUP</span></code> or by creating a Python script in home
+directory for QGIS.  This folder is usually located in:</p>
+<ul class="simple">
+<li><p>On Linux <code class="file docutils literal notranslate"><span class="pre">.local/share/QGIS/QGIS3/</span></code></p></li>
+<li><p>On Windows: <code class="file docutils literal notranslate"><span class="pre">AppDataRoamingQGISQGIS3profilesdefaultpython</span></code></p></li>
+<li><p>On macOS: <cite>Library/Application Support/QGIS/QGIS3/profiles/default</cite></p></li>
+</ul>
+<p>After you locate the correct directory, create a file called <code class="file docutils literal notranslate"><span class="pre">startup.py</span></code>.
+This script will be run automatically on startup.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As you can see above, path to this directory is different on
+every operation system. To locate it correctly, open
+<span class="menuselection">Plugins ‣ Python console</span> and type
+<code class="code docutils literal notranslate"><span class="pre">QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)</span></code>
+By such statement also presence of required modules can be
+checked.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># file example ~/.local/share/QGIS/QGIS3/startup.py</span>
+
+<span class="c1">#</span>
+<span class="c1"># adding custom path to Python plugins</span>
+<span class="c1">#</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/home/user/python/plugins&quot;</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># activation of your Virtualenv</span>
+<span class="c1">#</span>
+<span class="n">activate_this_file</span> <span class="o">=</span> <span class="s2">&quot;/path/to/virtualenv/bin/activate_this.py&quot;</span>
+<span class="n">exec</span><span class="p">(</span>
+    <span class="nb">compile</span><span class="p">(</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">activate_this_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+        <span class="n">activate_this_file</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span>
+    <span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="vm">__file__</span><span class="o">=</span><span class="n">activate_this_file</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># installation of missing packages</span>
+<span class="c1">#</span>
+<span class="kn">import</span> <span class="nn">pip</span>
+<span class="n">pip</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;some_package&#39;</span><span class="p">])</span>
+
+<span class="c1">#</span>
+<span class="c1"># checking presence of the packages</span>
+<span class="c1">#</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">fiona</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everything is okay&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fiona is not installed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thanks to that, our required modules (like <cite>fiona</cite>) and working
+environment are set up and ready to use.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QGIS and Python</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Launching code on startup of QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">Interactive console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standalone.html">Creating custom applications built on QGIS libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Calling processing tools from Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqgis_intro.html">PyQGIS introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="QGIS and Python"
+              >previous</a> |
+            <a href="console.html" title="Interactive console"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

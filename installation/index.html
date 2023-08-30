@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Installation and environment &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Publish the plugin" href="../publish_plugin.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../publish_plugin.html" title="Publish the plugin"
+             accesskey="P">previous</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installation-and-environment">
+<h1>Installation and environment<a class="headerlink" href="#installation-and-environment" title="Permalink to this heading">¶</a></h1>
+<p>For every development, some system tweaks and necessary tools are needed.</p>
+<section id="text-editor">
+<h2>Text Editor<a class="headerlink" href="#text-editor" title="Permalink to this heading">¶</a></h2>
+<p>You can use any text editor, which you are already using for your
+daily programming activities. Even <a class="reference internal" href="../python/console.html#buildin-editor"><span class="std std-ref">build-in QGIS editor</span></a> can be fine. If you are in doubt, which one to
+choose, consider one of following editors:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sublimetext.com/">Sublime</a> A sophisticated text
+editor for code, markup and prose</p></li>
+<li><p><a class="reference external" href="https://atom.io/">Atom</a> A hackable text editor for the 21st
+Century</p></li>
+<li><p><a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a> A
+lightweight but powerful source code editor which runs on your
+desktop and is available for Windows, macOS and Linux.</p></li>
+<li><p><a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>) The Python IDE for
+Professional Developers</p></li>
+</ul>
+<p>Sublime and Atom are rather simplier editors (with complex features in
+the backend though), while Visual Studio Code and PyCharm are more
+Integrated development enviroments.</p>
+<p>It is worth to spend some time with some tutorial of your featured editor to
+know all the features and hidden gems, to become more effective.</p>
+</section>
+<section id="qt-designer">
+<span id="qtdesigner"></span><h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.qt.io/design">Qt Designer</a> is a tool for creating
+destkop applications, which will be later empowered with some
+programming code to make the graphical user interface work.</p>
+<p>Usually, the application design is created by the programmer, but it does no
+need to be the case, since one does not have to know any programming in order to
+create user interface. You just have to understand principals of the UX design -
+therefore the look and feel of the application can be done by someone else as
+well as the final programming code, which will bring the apparence of the
+application to life.</p>
+<section id="install-qt-designer-on-linux">
+<h3>Install Qt Designer on Linux<a class="headerlink" href="#install-qt-designer-on-linux" title="Permalink to this heading">¶</a></h3>
+<p>On Linux, you should be able to use your favourite packaging tool, like
+<strong class="program">apt</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pyqt5<span class="w"> </span>libqt5designer5
+</pre></div>
+</div>
+</section>
+<section id="install-qt-designer-on-windows">
+<h3>Install Qt Designer on Windows<a class="headerlink" href="#install-qt-designer-on-windows" title="Permalink to this heading">¶</a></h3>
+<p>On MS Windows platform, start the OSGeo4W installator, choose
+<code class="docutils literal notranslate"><span class="pre">Advanced</span> <span class="pre">installation</span></code> and search for the <code class="docutils literal notranslate"><span class="pre">qt5-tools</span></code> package.</p>
+<figure class="align-center">
+<img alt="../_images/install-qt5-tools.png" class="middle" src="../_images/install-qt5-tools.png" />
+</figure>
+<figure class="align-center" id="id1">
+<img alt="../_images/qt-designer-windows-start.png" class="middle" src="../_images/qt-designer-windows-start.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Qt Designer can be found in the start menu of Windows.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#text-editor">Text Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qt-designer">Qt Designer</a></li>
+</ul>
+</li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../publish_plugin.html" title="Publish the plugin"
+              >previous</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

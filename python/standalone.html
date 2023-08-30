@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Creating custom applications built on QGIS libraries &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calling processing tools from Python" href="processing.html" />
+    <link rel="prev" title="Interactive console" href="console.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="console.html" title="Interactive console"
+             accesskey="P">previous</a> |
+          <a href="processing.html" title="Calling processing tools from Python"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="creating-custom-applications-built-on-qgis-libraries">
+<h1>Creating custom applications built on QGIS libraries<a class="headerlink" href="#creating-custom-applications-built-on-qgis-libraries" title="Permalink to this heading">¶</a></h1>
+<p>It is usually better to run processes automatically than manually. On
+our course(s), we are trying to promote this approach. While working
+with geospatial data using <a class="reference external" href="https://fiona.readthedocs.io/en/stable/">Fiona</a>, <a class="reference external" href="https://rasterio.readthedocs.io/en/latest/">RasterIO</a> or <a class="reference external" href="https://pcjericks.github.io/py-gdalogr-cookbook/">GDAL</a> libraries, it is
+no surprise that we can also use directly QGIS libraries.</p>
+<p>Base module is <code class="docutils literal notranslate"><span class="pre">qgis.core</span></code>, which is required by various tasks that
+process data. With QGIS libraries, you can also create your own
+application with graphical user interface. This can be achieved by
+using module <code class="docutils literal notranslate"><span class="pre">qgis.gui</span></code>, which enables many interesting options such
+as <em>map canvas</em>, which we can use to display maps and so on.</p>
+<section id="base-structure-of-project">
+<h2>Base structure of project<a class="headerlink" href="#base-structure-of-project" title="Permalink to this heading">¶</a></h2>
+<p>Before we start using QGIS libraries, we need to set up some settings
+for the start and the end of our script.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/usr/bin/env python3</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># Minimalistic script, that initializes and prepares QGIS libraries</span>
+<span class="linenos"> 4</span><span class="c1"># for use</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># But first, we have to setup a correct path to QGIS</span>
+<span class="linenos"> 9</span><span class="n">QgsApplication</span><span class="o">.</span><span class="n">setPrefixPath</span><span class="p">(</span><span class="s2">&quot;/usr/local/&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Next, we create QGIS instance. Second argument will specify,</span>
+<span class="linenos">12</span><span class="c1"># if we are creating app with graphical interface or not.</span>
+<span class="linenos">13</span><span class="n">qgs</span> <span class="o">=</span> <span class="n">QgsApplication</span><span class="p">([],</span> <span class="kc">False</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># loading data sources</span>
+<span class="linenos">16</span><span class="n">qgs</span><span class="o">.</span><span class="n">initQgis</span><span class="p">()</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1">#</span>
+<span class="linenos">19</span><span class="c1"># Here comes your code for app built on QGIS libraries.</span>
+<span class="linenos">20</span><span class="c1">#</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># At the end of your program, you need to write exitQgis(). This command will deregister</span>
+<span class="linenos">23</span><span class="c1"># data sources, providers and erase layers from computer memory.</span>
+<span class="linenos">24</span><span class="n">qgs</span><span class="o">.</span><span class="n">exitQgis</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After setting up permissions to <em>launch file</em> <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">755</span>
+<span class="pre">standalone.py</span></code> (Linux) we can safely launch it and leave it running.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible that you will need to set up correct
+environmental variable <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> with path to Python
+libraries for QGIS.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QGIS and Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="startup.html">Launching code on startup of QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">Interactive console</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating custom applications built on QGIS libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Calling processing tools from Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqgis_intro.html">PyQGIS introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="console.html" title="Interactive console"
+              >previous</a> |
+            <a href="processing.html" title="Calling processing tools from Python"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

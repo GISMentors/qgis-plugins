@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Creating UI &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Publish the plugin" href="../publish_plugin.html" />
+    <link rel="prev" title="Plugin initialization" href="01-initial.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="01-initial.html" title="Plugin initialization"
+             accesskey="P">previous</a> |
+          <a href="../publish_plugin.html" title="Publish the plugin"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="creating-ui">
+<h1>Creating UI<a class="headerlink" href="#creating-ui" title="Permalink to this heading">¶</a></h1>
+<p>For now, we need two user inputs:</p>
+<ul class="simple">
+<li><p>Input vector layer</p></li>
+<li><p>Output target directory</p></li>
+</ul>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>In the Qt Designer create two required inputs. Use
+<a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsMapLayerComboBox.html">QgsMapLayerComboBox</a> for layer selection, <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsFileWidget.html">QgsFileWidget</a> for
+output dir name.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">objectName</span></code> attribute to name the objects: <cite>layers</cite>,
+<cite>output_dir</cite> and <cite>submit</cite>.</p>
+<p>Consider using grid layout and horizontal/vertical spacers.</p>
+</div>
+<figure class="align-center" id="id1">
+<img alt="../_images/plugin-ui-final.svg" class="middle" src="../_images/plugin-ui-final.svg" /><figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Example of plugin UI design.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="the-code">
+<h2>The Code<a class="headerlink" href="#the-code" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">run()</span></code> method of the <code class="xref py py-class docutils literal notranslate"><span class="pre">SaveViews</span></code> class
+has to do following tasks:</p>
+<ol class="arabic simple">
+<li><p>Initialize some initial form inputs</p></li>
+<li><p>Get the user input data</p></li>
+<li><p>Call the saving function</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 2</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that loads and starts the plugin&quot;&quot;&quot;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pluginIsActive</span><span class="p">:</span>
+<span class="linenos"> 6</span>            <span class="bp">self</span><span class="o">.</span><span class="n">pluginIsActive</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>            <span class="c1">#print &quot;** STARTING SaveViews&quot;</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>            <span class="c1"># dockwidget may not exist if:</span>
+<span class="linenos">11</span>            <span class="c1">#    first run of plugin</span>
+<span class="linenos">12</span>            <span class="c1">#    removed on close (see self.onClosePlugin method)</span>
+<span class="linenos">13</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">14</span>                <span class="c1"># Create the dockwidget (after translation) and keep reference</span>
+<span class="linenos">15</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span> <span class="o">=</span> <span class="n">SaveViewsDockWidget</span><span class="p">()</span>
+<span class="hll"><span class="linenos">16</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">setFilters</span><span class="p">(</span><span class="n">QgsMapLayerProxyModel</span><span class="o">.</span><span class="n">VectorLayer</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">17</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">output_dir</span><span class="o">.</span><span class="n">setStorageMode</span><span class="p">(</span><span class="n">QgsFileWidget</span><span class="o">.</span><span class="n">GetDirectory</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">18</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_views</span><span class="p">)</span>
+</span><span class="linenos">19</span>
+<span class="linenos">20</span>            <span class="c1"># connect to provide cleanup on closing of dockwidget</span>
+<span class="linenos">21</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">closingPlugin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onClosePlugin</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>            <span class="c1"># show the dockwidget</span>
+<span class="linenos">24</span>            <span class="c1"># TODO: fix to allow choice of dock location</span>
+<span class="linenos">25</span>            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">addDockWidget</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="p">)</span>
+<span class="linenos">26</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note, that we had to import QGIS Python modules</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
+<span class="linenos">2</span><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+<span class="linenos">3</span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsMapLayerProxyModel</span>
+<span class="linenos">4</span><span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="n">QgsFileWidget</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For testing purpose we can hardcode output path</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">output_dir</span><span class="o">.</span><span class="n">setFilePath</span><span class="p">(</span><span class="s2">&quot;/tmp/output&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="image-save-function">
+<h3>Image save function<a class="headerlink" href="#image-save-function" title="Permalink to this heading">¶</a></h3>
+<p>Finally, we approach to the heart of the plugin: the <code class="docutils literal notranslate"><span class="pre">save_views()</span></code> method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span> <span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 2</span><span class="w">         </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 3</span><span class="sd">         save graphical output for every row in attribute table</span>
+<span class="linenos"> 4</span><span class="sd">         &quot;&quot;&quot;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>         <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">currentLayer</span><span class="p">()</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>         <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+<span class="linenos"> 9</span>             <span class="n">layer</span><span class="o">.</span><span class="n">selectByIds</span><span class="p">([</span><span class="n">feature</span><span class="o">.</span><span class="n">id</span><span class="p">()])</span>
+<span class="linenos">10</span>             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectionColor</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;transparent&quot;</span><span class="p">))</span>
+<span class="linenos">11</span>             <span class="n">box</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">boundingBoxOfSelected</span><span class="p">()</span>
+<span class="linenos">12</span>             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="linenos">13</span>             <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
+<span class="linenos">14</span>                              <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+<span class="linenos">15</span>             <span class="p">)</span>
+<span class="linenos">16</span>             <span class="n">mapfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+<span class="linenos">17</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">output_dir</span><span class="o">.</span><span class="n">filePath</span><span class="p">(),</span>
+<span class="linenos">18</span>                     <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">_</span><span class="si">{1:03d}</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">feature</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
+<span class="linenos">19</span>             <span class="p">)</span>
+<span class="linenos">20</span>             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">saveAsImage</span><span class="p">(</span><span class="n">mapfile</span><span class="p">,</span> <span class="n">pixmap</span><span class="p">)</span>
+<span class="linenos">21</span>             <span class="n">layer</span><span class="o">.</span><span class="n">removeSelection</span><span class="p">()</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>         <span class="c1"># save also full extend of vector layer                            </span>
+<span class="linenos">24</span>         <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
+<span class="linenos">25</span>         <span class="n">canvas</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span><span class="p">())</span>
+<span class="linenos">26</span>         <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
+<span class="linenos">27</span>                          <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+<span class="linenos">28</span>         <span class="p">)</span>
+<span class="linenos">29</span>         <span class="n">mapfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+<span class="linenos">30</span>                    <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">output_dir</span><span class="o">.</span><span class="n">filePath</span><span class="p">(),</span>
+<span class="linenos">31</span>                    <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_full.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+<span class="linenos">32</span>        <span class="p">)</span>
+<span class="linenos">33</span>         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">saveAsImage</span><span class="p">(</span><span class="n">mapfile</span><span class="p">,</span> <span class="n">pixmap</span><span class="p">)</span> 
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="../_images/plugin-ui-final2.png" class="small" src="../_images/plugin-ui-final2.png" />
+</figure>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Make sure that the plugin will not fail, if no target
+directory is selected.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>In case that you want to change plugin icon, modify the
+<code class="file docutils literal notranslate"><span class="pre">icon.png</span></code> file as you wish.</p>
+</div>
+<figure class="align-center" id="id2">
+<span id="np-plugin-result"></span><img alt="../_images/save-views-result.png" class="large" src="../_images/save-views-result.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Example of image files stored in output directory.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Save views plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-inputs">User Inputs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#development-workflow">Development workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="01-initial.html" title="Plugin initialization"
+              >previous</a> |
+            <a href="../publish_plugin.html" title="Publish the plugin"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Plugin initialization &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating UI" href="02-ui.html" />
+    <link rel="prev" title="Save views plugin" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="Save views plugin"
+             accesskey="P">previous</a> |
+          <a href="02-ui.html" title="Creating UI"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plugin-initialization">
+<h1>Plugin initialization<a class="headerlink" href="#plugin-initialization" title="Permalink to this heading">¶</a></h1>
+<section id="create-qgis-project">
+<h2>Create QGIS project<a class="headerlink" href="#create-qgis-project" title="Permalink to this heading">¶</a></h2>
+<p>Use <span class="menuselection">Layer ‣ Add layer ‣ Add vector layer</span>, icon
+<a class="reference internal" href="../_images/mActionAddOgrLayer.png"><img alt="mActionAddOgrLayer" src="../_images/mActionAddOgrLayer.png" style="width: 1.5em;" /></a> <sup>Add vector layer</sup> or
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">V</kbd></kbd>. Add multiple layers to your new QGIS project.</p>
+<blockquote>
+<div><figure class="align-center" id="id1">
+<span id="np-project"></span><img alt="../_images/qgis-project.png" class="middle" src="../_images/qgis-project.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Sample QGIS project.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div></blockquote>
+</section>
+<section id="activate-plugin">
+<h2>Activate plugin<a class="headerlink" href="#activate-plugin" title="Permalink to this heading">¶</a></h2>
+<p>In <span class="menuselection">Plugins ‣ Manage and install plugins</span> search and
+activate the <cite>Save Views</cite> plugin.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/save-views-enable.png" class="middle" src="../_images/save-views-enable.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Activate the plugin.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>See a new icon in the toolbar <a class="reference internal" href="../_images/icon.png"><img alt="new_plugin1" src="../_images/icon.png" style="width: 1.5em;" /></a>. Plugin can be open.</p>
+<figure class="align-center" id="id3">
+<img alt="../_images/plugin-ui-template.png" src="../_images/plugin-ui-template.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Empty plugin dialogue.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="qt-designer">
+<h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Permalink to this heading">¶</a></h2>
+<p>Start the <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Desginer tool</a> and open the
+<code class="file docutils literal notranslate"><span class="pre">save_views_dockwidget_base.ui</span></code> file.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/qt_designer_01.png" class="middle" src="../_images/qt_designer_01.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">The dialogue is empty so far.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-code">
+<h2>The code<a class="headerlink" href="#the-code" title="Permalink to this heading">¶</a></h2>
+<p>The key file is <code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code> and the <code class="docutils literal notranslate"><span class="pre">run()</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 2</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that loads and starts the plugin&quot;&quot;&quot;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pluginIsActive</span><span class="p">:</span>
+<span class="linenos"> 5</span>            <span class="bp">self</span><span class="o">.</span><span class="n">pluginIsActive</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>            <span class="c1">#print &quot;** STARTING SaveViews&quot;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>            <span class="c1"># dockwidget may not exist if:</span>
+<span class="linenos">10</span>            <span class="c1">#    first run of plugin</span>
+<span class="linenos">11</span>            <span class="c1">#    removed on close (see self.onClosePlugin method)</span>
+<span class="linenos">12</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">13</span>                <span class="c1"># Create the dockwidget (after translation) and keep reference</span>
+<span class="linenos">14</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span> <span class="o">=</span> <span class="n">SaveViewsDockWidget</span><span class="p">()</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>            <span class="c1"># connect to provide cleanup on closing of dockwidget</span>
+<span class="linenos">17</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">closingPlugin</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onClosePlugin</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>            <span class="c1"># show the dockwidget</span>
+<span class="linenos">20</span>            <span class="c1"># TODO: fix to allow choice of dock location</span>
+<span class="linenos">21</span>            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">addDockWidget</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="p">)</span>
+<span class="linenos">22</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code can be downloaded from <a class="reference external" href="https://github.com/GISMentors/qgis-plugins/tree/master/src/save_views-01-init">our Github</a>.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Save views plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-inputs">User Inputs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#development-workflow">Development workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="Save views plugin"
+              >previous</a> |
+            <a href="02-ui.html" title="Creating UI"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

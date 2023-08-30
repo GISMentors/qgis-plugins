@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Interactive console &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating custom applications built on QGIS libraries" href="standalone.html" />
+    <link rel="prev" title="Launching code on startup of QGIS" href="startup.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="startup.html" title="Launching code on startup of QGIS"
+             accesskey="P">previous</a> |
+          <a href="standalone.html" title="Creating custom applications built on QGIS libraries"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="interactive-console">
+<h1>Interactive console<a class="headerlink" href="#interactive-console" title="Permalink to this heading">¶</a></h1>
+<p>Whether you use MS Windows or Linux, you should have QGIS installed
+with Python console. We will use it now to determine system version.</p>
+<p>Go to <span class="menuselection">Plugins ‣ Python console</span>
+(<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Alt</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd></kbd>). This should open a new window with an interactive
+console.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/console.png" class="middle" src="../_images/console.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Interactive Python console in QGIS.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>After you open Python console, you should see these buttons:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../_images/iconClearConsole.png"><img alt="clearConsole" src="../_images/iconClearConsole.png" style="width: 1.5em;" /></a></dt><dd><p>Clear window contents and delete all displayed text</p>
+</dd>
+<dt><a class="reference internal" href="../_images/iconRunConsole.png"><img alt="runConsole" src="../_images/iconRunConsole.png" style="width: 1.5em;" /></a></dt><dd><p>Run command. You can use this button or just simply press
+<kbd class="kbd docutils literal notranslate">Enter</kbd></p>
+</dd>
+<dt><a class="reference internal" href="../_images/iconShowEditorConsole.png"><img alt="showEditorConsole" src="../_images/iconShowEditorConsole.png" style="width: 1.5em;" /></a></dt><dd><p>Opens a text editor. You can edit your code through it</p>
+</dd>
+<dt><a class="reference internal" href="../_images/iconSettingsConsole.png"><img alt="settingsConsole" src="../_images/iconSettingsConsole.png" style="width: 1.5em;" /></a></dt><dd><p>Advanced settings of console and editor</p>
+</dd>
+<dt><a class="reference internal" href="../_images/iconHelpConsole.png"><img alt="helpConsole" src="../_images/iconHelpConsole.png" style="width: 1.5em;" /></a></dt><dd><p>This will launch web browser with help manual</p>
+</dd>
+</dl>
+<p>Python console gives us option to write code more
+interactively. Moreover the console supports syntax highlight. You can
+also save your code to a file.  When you press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">Alt</kbd>-<kbd class="kbd docutils literal notranslate">Space</kbd></kbd>,
+it will automatically insert commands.  To see history of commands,
+press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">Shift</kbd>-<kbd class="kbd docutils literal notranslate">Space</kbd></kbd>.</p>
+<p>Let’s start with a command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_pyqgis</span>
+</pre></div>
+</div>
+<p>which display documentation for Python in QGIS as a new tab in web browser.</p>
+<p>Similarly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_api</span>
+</pre></div>
+</div>
+<p>will also display C++ API documentation.</p>
+<section id="editor">
+<span id="buildin-editor"></span><h2>Editor<a class="headerlink" href="#editor" title="Permalink to this heading">¶</a></h2>
+<p>Built-in code editor can be open by clicking on icon
+<a class="reference internal" href="../_images/iconShowEditorConsole.png"><img alt="showEditorConsole" src="../_images/iconShowEditorConsole.png" style="width: 1.5em;" /></a>. Automatic prompting (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Space</kbd></kbd>) can be
+very useful while writing a code. To check code syntax, press
+(<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">4</kbd></kbd>). Another useful functions are search in code and
+inspect the code.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/editor.png" class="middle" src="../_images/editor.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Built-in Python code editor.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QGIS and Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="startup.html">Launching code on startup of QGIS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Interactive console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standalone.html">Creating custom applications built on QGIS libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Calling processing tools from Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqgis_intro.html">PyQGIS introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="startup.html" title="Launching code on startup of QGIS"
+              >previous</a> |
+            <a href="standalone.html" title="Creating custom applications built on QGIS libraries"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

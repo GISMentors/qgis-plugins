@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>QGIS Plugins &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gismentors.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="QGIS and Python" href="python/index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="#">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="python/index.html" title="QGIS and Python"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="qgis-plugins">
+<h1>QGIS Plugins<a class="headerlink" href="#qgis-plugins" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/qgis_logo.png"><img alt="_images/qgis_logo.png" class="align-left" src="_images/qgis_logo.png" style="width: 140px;" /></a>
+<p>Python support was introduced in QGIS 0.9 (2007). Today, there are
+several ways how to use Python in QGIS Desktop. They are covered in the
+following sections:</p>
+<ul class="simple">
+<li><p>Enter commands in the QGIS Python interactive console</p></li>
+<li><p>Create and use QGIS plugins</p></li>
+<li><p>Automatically run Python code when QGIS starts</p></li>
+<li><p>Create custom applications based on the QGIS API</p></li>
+</ul>
+<p>(source: <a class="reference external" href="https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/intro.html">PyQGIS Developer Cookbook</a>)</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>All examples are QGIS 3.22 LTR compatible. Python 3 and
+Qt 5 required. Functionality in other QGIS versions is not
+guaranteed.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">QGIS and Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python/startup.html">Launching code on startup of QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python/console.html">Interactive console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python/standalone.html">Creating custom applications built on QGIS libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python/processing.html">Calling processing tools from Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python/pyqgis_intro.html">PyQGIS introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_plugin.html">Build the plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build_plugin.html#configuration-file-pb-tool-cfg">Configuration file <code class="file docutils literal notranslate"><span class="pre">pb_tool.cfg</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_plugin.html#first-build-of-the-plugin">First build of the plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_plugin.html#using-plugin-in-place">Using plugin in place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_plugin.html#activate-plugin-in-qgis">Activate plugin in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_plugin.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Save views plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/index.html#user-inputs">User Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/index.html#development-workflow">Development workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publish_plugin.html">Publish the plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="publish_plugin.html#create-zip-package">Create zip package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publish_plugin.html#official-qgis-plugin-repository">Official QGIS plugin repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publish_plugin.html#local-qgis-plugin-repository">Local QGIS plugin repository</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation and environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/index.html#text-editor">Text Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/index.html#qt-designer">Qt Designer</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="important-links">
+<h2>Important links<a class="headerlink" href="#important-links" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://qgis.org">http://qgis.org</a></p></li>
+<li><p>API</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://qgis.org/pyqgis/3.22/">https://qgis.org/pyqgis/3.22/</a> (Python)</p></li>
+<li><p><a class="reference external" href="https://qgis.org/api/3.22/">https://qgis.org/api/3.22/</a> (C++)</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><a class="reference external" href="https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/">Cookbook</a>
+<strong>(very useful!!!)</strong></p>
+</div>
+</section>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this heading">¶</a></h2>
+<p>Licensed under <a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+International License</a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/cc-by-sa.png"><img alt="_images/cc-by-sa.png" src="_images/cc-by-sa.png" style="width: 130px;" /></a>
+</figure>
+<p><em>Version:</em> 0.9beta (built Aug 30, 2023)</p>
+<section id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<p>On behalf of <a class="reference external" href="http://www.gismentors.cz/">GISMentors</a> group:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.gismentors.cz/mentors/cepicky/">Jáchym Čepický</a></p></li>
+<li><p><a class="reference external" href="http://www.gismentors.cz/mentors/landa/">Martin Landa</a></p></li>
+<li><p><a class="reference external" href="http://www.gismentors.cz/mentors/furtkevicova/">Ľudmila Furtkevičová</a></p></li>
+</ul>
+</section>
+<section id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this heading">¶</a></h3>
+<p>Source code is available at:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/GISMentors/qgis-plugins">https://github.com/GISMentors/qgis-plugins</a></p></li>
+</ul>
+<p>Feel free to report issues at:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/GISMentors/qgis-plugins/issues">https://github.com/GISMentors/qgis-plugins/issues</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="python/index.html" title="QGIS and Python"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Build the plugin &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gismentors.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Qt Designer" href="qt_designer.html" />
+    <link rel="prev" title="Start QGIS Plugin" href="start_plugin.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="start_plugin.html" title="Start QGIS Plugin"
+             accesskey="P">previous</a> |
+          <a href="qt_designer.html" title="Qt Designer"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="build-the-plugin">
+<h1>Build the plugin<a class="headerlink" href="#build-the-plugin" title="Permalink to this heading">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure, where is the PyQt5 resource compiler
+(<code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>) available in your <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code></p>
+<p>You can test it by running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyrcc5<span class="w"> </span>-help
+</pre></div>
+</div>
+<p>You should obtain readable help message</p>
+</div>
+<figure class="align-center">
+<img alt="_images/pyrcc5-help.png" src="_images/pyrcc5-help.png" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are on MS Windows, open <em>OSGeo4W Shell</em> (ideally as
+<em>administrator</em>) and run two scripts before any attempts:
+<code class="docutils literal notranslate"><span class="pre">py3_env</span></code> and <code class="docutils literal notranslate"><span class="pre">qt5_env</span></code></p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>c:<span class="se">\&gt;</span><span class="w"> </span>py3_env
+
+c:<span class="se">\&gt;</span><span class="w"> </span>qt5_env
+
+c:<span class="se">\&gt;</span><span class="w"> </span>pyrcc5<span class="w"> </span>-help
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="_images/pyrcc5-windows.png" src="_images/pyrcc5-windows.png" />
+</figure>
+</div></blockquote>
+</div>
+<p>To build the plugin <strong class="program">pb_tool</strong> must be available in the system. This
+package is available via PyPI service (using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It might look as good idea to use standard <code class="docutils literal notranslate"><span class="pre">make</span></code>, since
+Makefile is available too. This is considered deprecated option and
+should no longer be used. <code class="docutils literal notranslate"><span class="pre">pb_tool</span></code> is more complex build system
+(and supports various operating systems).</p>
+</div>
+<p>To install <code class="docutils literal notranslate"><span class="pre">pb_tool</span></code>, just use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pb_tool
+</pre></div>
+</div>
+<section id="configuration-file-pb-tool-cfg">
+<h2>Configuration file <code class="file docutils literal notranslate"><span class="pre">pb_tool.cfg</span></code><a class="headerlink" href="#configuration-file-pb-tool-cfg" title="Permalink to this heading">¶</a></h2>
+<p><strong class="program">pb_tool</strong> needs a configuration file (generated by the <a class="reference internal" href="start_plugin.html"><span class="doc">Plugin
+Builder</span></a>). In this file, you can modify target plugin
+path as well as locales, extra directories needed and other metadata.</p>
+</section>
+<section id="first-build-of-the-plugin">
+<h2>First build of the plugin<a class="headerlink" href="#first-build-of-the-plugin" title="Permalink to this heading">¶</a></h2>
+<p>First we compile UI files</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/save_views
+pb_tool<span class="w"> </span>compile
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have no administrator permission on MS Windows than
+you can run <strong class="program">pb_tool</strong> by this command:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="nv">%homepath%</span>\AppData\Roaming\Python\Python37\Scripts\pb_tool compile
+</pre></div>
+</div>
+</div>
+</section>
+<section id="using-plugin-in-place">
+<h2>Using plugin in place<a class="headerlink" href="#using-plugin-in-place" title="Permalink to this heading">¶</a></h2>
+<p>Instead of deploying the plugin using <strong class="program">pb_tool</strong> it is more
+flexible when the plugin to set up by QGIS environment in order to be
+able to install the plugin from current folder without need of
+deployment.</p>
+<p>Let’s add your plugin location to the <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code> in
+<span class="menuselection">Settings ‣ Options ‣ System</span>. Enable <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">custom</span>
+<span class="pre">variables</span></code> in <code class="docutils literal notranslate"><span class="pre">Environment</span></code> section and add a new variable:
+<span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code>. This variable should point to a <strong>parent</strong>
+directory where the plugin is located. <em>Restart</em> (close and open) QGIS
+and continue with <a class="reference internal" href="#install"><span class="std std-ref">installing the plugin</span></a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>QGIS doesn’t allow in the path defined by
+<span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code> non-ascii characters. If your path
+contains such characters than consider to rename directories in the
+path which causing this issue.</p>
+</div>
+<figure class="align-center" id="id3">
+<img alt="_images/qgis-pluginpath.svg" src="_images/qgis-pluginpath.svg" /><figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Setting of the <code class="docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code> variable.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="activate-plugin-in-qgis">
+<span id="install"></span><h2>Activate plugin in QGIS<a class="headerlink" href="#activate-plugin-in-qgis" title="Permalink to this heading">¶</a></h2>
+<p>Open QGIS and find the new plugin in the <span class="menuselection">Plugins ‣
+Manage and Install Plugins…</span>. Check the checkbox to activate the
+plugin in QGIS.</p>
+<figure class="align-center" id="id4">
+<img alt="_images/save-views-enable.png" src="_images/save-views-enable.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Activate plugin Save Views.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>An icon of the plugin <a class="reference internal" href="_images/icon.png"><img alt="new_plugin" src="_images/icon.png" style="width: 1.5em;" /></a> appears in the toolbar as well as
+new menu selection in <span class="menuselection">Vector ‣ Save Views ‣ Save Views</span>.</p>
+<p>When running it, a new (empty) dialog will be open.</p>
+<figure class="align-center" id="plugin-dlg">
+<img alt="_images/plugin-ui-template.png" class="small" src="_images/plugin-ui-template.png" />
+</figure>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<section id="virtualenv">
+<h3>Virtualenv<a class="headerlink" href="#virtualenv" title="Permalink to this heading">¶</a></h3>
+<p>Virtualenv is one of the possibilities, how to keep your code and it’s
+dependencies independent.</p>
+<p>To create the virtualenv, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myvenv
+</pre></div>
+</div>
+<p>For QGIS running within Python <cite>virtualenv</cite>, you need to adjust
+:file:<a href="#id1"><span class="problematic" id="id2">``</span></a>activate` script and add <span class="target" id="index-4"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> with Python, Qt
+and QGIS libraries.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$EDITOR</span><span class="w"> </span>myvenv/bin/activate
+
+<span class="o">[</span>...<span class="o">]</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:/usr/local/share/qgis/python/:/usr/lib/python3/dist-packages/
+<span class="o">[</span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p>To initialize the virtualenv, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>myenv/bin/activate
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s generally good advice to use <strong class="program">virtualenvwrapper</strong> tool.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build the plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file-pb-tool-cfg">Configuration file <code class="file docutils literal notranslate"><span class="pre">pb_tool.cfg</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-build-of-the-plugin">First build of the plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-plugin-in-place">Using plugin in place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activate-plugin-in-qgis">Activate plugin in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="start_plugin.html" title="Start QGIS Plugin"
+              >previous</a> |
+            <a href="qt_designer.html" title="Qt Designer"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Save Views &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="save-views">
+<h1>Save Views<a class="headerlink" href="#save-views" title="Permalink to this heading">¶</a></h1>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Clean-up &amp; rewrite to English</p>
+</div>
+<section id="vytvoreni-sablony-noveho-pluginu">
+<h2>1. Vytvoření šablony nového pluginu<a class="headerlink" href="#vytvoreni-sablony-noveho-pluginu" title="Permalink to this heading">¶</a></h2>
+<p>Po spuštění zásuvného modulu pro tvorbu pluginů <a class="reference internal" href="qgis/images/plugin-builder-icon.png"><img alt="plugin-builder" src="qgis/images/plugin-builder-icon.png" style="width: 1.5em;" /></a> se
+objeví dialogové okno, kde zadáme základní údaje o našem novém
+nástroji, viz. <code class="xref std std-numref docutils literal notranslate"><span class="pre">plugin-builder</span></code>.</p>
+<figure class="align-center" id="id3">
+<span id="plugin-builder"></span><img alt="../_images/plugin-builder-0.png" class="small" src="../_images/plugin-builder-0.png" />
+<figcaption>
+<p><span class="caption-text">Dialogové okno zásuvného modulu na tvorbu pluginů. Zde vyplníme
+základní udáje.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Class name</em> je název Python třídy a <em>Module name</em> název
+adresáře. U těchto položek nepoužívejte diakritiku, mezery a pod.</p>
+</div>
+<figure class="align-center" id="id4">
+<img alt="../_images/plugin-builder-1.png" class="small" src="../_images/plugin-builder-1.png" />
+<figcaption>
+<p><span class="caption-text">Na další stránce průvodce vyplníme podrobné informace o našem
+nástroji (<em>About</em>).</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>V třetí části vybereme šablonu uživatelského prostředí. K dispozici jsou tři:</p>
+<ul class="simple">
+<li><p><em>Tool button with dialog</em> (samostatné okno)</p></li>
+<li><p><em>Tool button with dockwidget</em> (přichytnutelné okno)</p></li>
+<li><p><em>Processing provider</em> (poskytovatel pro nástoje zpracování, viz
+školení <a class="reference external" href="http://training.gismentors.eu/qgis-pokrocily/geoprocessing/index.html">QGIS pro pokročilé</a>)</p></li>
+</ul>
+<figure class="align-center" id="id5">
+<img alt="../_images/plugin-builder-2.png" class="small" src="../_images/plugin-builder-2.png" />
+<figcaption>
+<p><span class="caption-text">V našem případě zvolíme <cite>Tool button with dockwidget</cite>.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Zadáme text, který se bude zobrazovat v menu. Nakonec vybereme, pod
+kterou položkou v menu náš nový plugin uživatel najde.</p>
+<figure class="align-center" id="id6">
+<img alt="../_images/plugin-builder-3.png" class="small" src="../_images/plugin-builder-3.png" />
+<figcaption>
+<p><span class="caption-text">Na dalších stránce průvodce je možné ovlivnit vytvoření dalších
+podpůrných souborů (lokalizace, nápověda, …).</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<img alt="../_images/plugin-builder-4.png" class="small" src="../_images/plugin-builder-4.png" />
+<figcaption>
+<p><span class="caption-text">Dále je možné vyplnit povinné a volitelné informace, například
+domovskou stránku, repositář modulu se zdrojovými kódy, označit
+nástroj jako experimentální a podobně. Tyto udaje lze doplnit ale
+později. Ponecháme prozatím výchozí hodnoty.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Následně se objeví okno, kde je potřebné zadat cestu, ve kterém se
+adresář s vytvořeným pluginem vytvoří. Zvolíme vhodné umístění na
+vašem disku, v našem případě <code class="file docutils literal notranslate"><span class="pre">/opt/qgis_plugins</span></code>.</p>
+<figure class="align-center" id="id8">
+<img alt="../_images/plugin-builder-5.png" class="small" src="../_images/plugin-builder-5.png" />
+<figcaption>
+<p><span class="caption-text">Cílový adresář, kde se vytvoří šablona s pluginem.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Po tomto kroku se objeví potvrzující dialog, tzv. <cite>Plugin Builder
+Results</cite> obsahující souhrnné informace.</p>
+<figure class="align-center" id="id9">
+<img alt="../_images/plugin-builder-6.png" class="small" src="../_images/plugin-builder-6.png" />
+<figcaption>
+<p><span class="caption-text">Souhrné informace o vytvořeném pluginu.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p id="plugin-dir">Na tomto místě najdete jednu podstatnou informaci, a to cestu k
+adresáři, kde vaše instalace QGISu hledá při načítání zásuvné
+moduly. Tato cesta je závislá na platfomě. Pod Linuxem je to typicky
+<code class="file docutils literal notranslate"><span class="pre">$HOME/.local/share/QGIS/QGIS3/profiles/default/python/plugins</span></code>. Pod
+Windows
+<code class="file docutils literal notranslate"><span class="pre">%APPDATA%\Roaming\QGIS\QGIS3\profiles\default\python\plugins</span></code>.</p>
+</section>
+<section id="preklad-qrc-souboru">
+<span id="krok2"></span><h2>2. Překlad qrc souboru<a class="headerlink" href="#preklad-qrc-souboru" title="Permalink to this heading">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Tento krok provede Plugin Builder automaticky, pokud je
+v systémové cestě dostupný nástroj <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>.</p>
+</div>
+<p>Otevřte adresář s vytvořeným pluginem, v našem případě
+<code class="file docutils literal notranslate"><span class="pre">/opt/qgis_plugins/save_views</span></code>. Pokud se soubor
+<code class="file docutils literal notranslate"><span class="pre">resources.py</span></code> nevytvořil, je potřeba to napravit. Spustíme z
+příkazové konzole příkaz <code class="docutils literal notranslate"><span class="pre">make</span></code>. Ten vytvoří na základě <em>Resource
+Collection File</em> (<cite>*.qrc</cite>) jeho Python přepis. Jde vlastně o spuštění
+výše uvedeného <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>.</p>
+</section>
+<section id="nacteni-noveho-pluginu-ve-spravci-zasuvnych-modulu">
+<span id="krok3"></span><h2>3. Načtení nového pluginu ve správci zásuvných modulů<a class="headerlink" href="#nacteni-noveho-pluginu-ve-spravci-zasuvnych-modulu" title="Permalink to this heading">¶</a></h2>
+<p>K tomu, aby nový plugin QGIS po startu našel, existuje více
+možností. Nejjednoduší variantou je adresář s pluginem překopírovat do
+výchozí cesty zásuvných modulů, viz <a class="reference internal" href="#plugin-dir"><span class="std std-ref">Krok 1</span></a>. Lepší
+variantou je definovat v nastavení QGISu (<span class="menuselection">Nastavení
+‣ Možnosti ‣ Systém</span>) proměnnou prostředí <code class="docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code>
+ukazující na nadřazený adresář vašeho pluginu,
+tj. <code class="file docutils literal notranslate"><span class="pre">/opt/qgis_plugins</span></code>. Po <em>restartu</em> bude QGIS zobrazovat
+všechny pluginy, které do tohoto adresáře v budnoucnu umístíte.</p>
+<figure class="align-center" id="id10">
+<img alt="../_images/qgis-pluginpath1.svg" src="../_images/qgis-pluginpath1.svg" /><figcaption>
+<p><span class="caption-text">Nastavení proměnné prostředí <code class="docutils literal notranslate"><span class="pre">QGIS_PLUGINPATH</span></code>.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Po opětovném startu QGISu by měl být v sekci <span class="menuselection">Zásuvné
+moduly ‣ Spravovat a instalovat zásuvné moduly</span> viditelný i plugin
+<em>Save Views</em>. Zaškrtnutím <a class="reference internal" href="qgis/images/checkbox.png"><img alt="box_yes" src="qgis/images/checkbox.png" style="width: 1.5em;" /></a> se objeví jeho ikona <a class="reference internal" href="qgis/images/np_plugin_icon.png"><img alt="npicon" src="qgis/images/np_plugin_icon.png" style="width: 1.5em;" /></a> a
+nová položka v hlavním menu, tak jako jsme zadali, tj. v sekci
+<span class="menuselection">Zásuvné moduly ‣ Save Views</span>.</p>
+<figure class="align-center" id="id11">
+<img alt="../_images/save-views-enable1.png" src="../_images/save-views-enable1.png" />
+<figcaption>
+<p><span class="caption-text">Aktivace zásuvného modulu Save Views.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Spuštěním <a class="reference internal" href="qgis/images/np_plugin_icon.png"><img alt="npicon" src="qgis/images/np_plugin_icon.png" style="width: 1.5em;" /></a> otevřeme dialog nástroje, který obsahuje popisek
+(<code class="xref std std-numref docutils literal notranslate"><span class="pre">plugin-dlg</span></code>).</p>
+<figure class="align-center" id="id12">
+<span id="plugin-dlg"></span><img alt="../_images/plugin-ui-template1.png" class="small" src="../_images/plugin-ui-template1.png" />
+<figcaption>
+<p><span class="caption-text">Okno modulu <em>Save Views</em> po prvním spuštění.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>V této fázi je dobré se zamyslet nad funkcionalitou pluginu,
+jaký bude typ vstupních dat a podobně. Na základě našich požadavků je
+vhodné si vytvořit testovací sadu.</p>
+<p>Vytvoříme si jednoduchý projekt v QGISu, který bude obsahovat několik
+vektorových vrstev. Na <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-project</span></code> jsou zobrazeny například
+požární stanice, železnice, kraje, velkoplošné území a státní
+hranice České republiky.</p>
+<figure class="align-center" id="id13">
+<span id="np-project"></span><img alt="../_images/qgis-project1.png" class="middle" src="../_images/qgis-project1.png" />
+<figcaption>
+<p><span class="caption-text">Příklad projektu s vektorovými vrstvami v QGIS.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="vytvoreni-uzivatelskeho-rozhrani-pomoci-qt-designer">
+<span id="krok4"></span><h2>4. Vytvoření uživatelského rozhraní pomocí Qt Designer<a class="headerlink" href="#vytvoreni-uzivatelskeho-rozhrani-pomoci-qt-designer" title="Permalink to this heading">¶</a></h2>
+<p>Vzhled a elementy dialogového okna pluginu budeme upravovat v programu
+<em>Qt Designer</em>. V hlavní liště zvolíme <span class="menuselection">File ‣ Open
+File or Project</span> a otevřeme soubor s příponou <cite>*.ui</cite>. V našem případě
+<cite>save_views_dockwidget_base.ui</cite>, který najdeme v adresáři vytvořeného
+pluginu. Na <code class="xref std std-numref docutils literal notranslate"><span class="pre">qtcreator</span></code> je znázorněné prozatím prázdné okno
+(<cite>SaveViewsDockWidgetBase</cite>) s objekty (tzv. widgety)
+<cite>dockWidgetContets</cite> a <cite>label</cite>. Pomocí metody <em>drag-and-drop</em> je možné
+z levého panelu přidávat další objekty a jejich názvy a vlastnosti
+měnit v pravé části okna aplikace <em>Qt Designer</em>.</p>
+<figure class="align-center" id="id14">
+<span id="qtcreator"></span><img alt="../_images/qt-designer.png" class="middle" src="../_images/qt-designer.png" />
+<figcaption>
+<p><span class="caption-text">Dialogové okno vytvářeného pluginu v prostředí aplikace <em>Qt Designer</em>.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Nejrpve v pravém panelu změníme předvolený text objektu <cite>label</cite> na
+<code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">a</span> <span class="pre">layer</span></code> (<code class="xref std std-numref docutils literal notranslate"><span class="pre">qtlabel</span></code>).</p>
+<figure class="align-center" id="id15">
+<span id="qtlabel"></span><img alt="../_images/qt-label.svg" class="middle" src="../_images/qt-label.svg" /><figcaption>
+<p><span class="caption-text">Editace objektů dialogového okna.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Dále v levé části okna najdeme objekt typu <em>Combo Box</em> a tažením myši
+jej umistíme do vhodného místa okna zásuvného modulu.</p>
+<figure class="align-center" id="id16">
+<img alt="../_images/qt-combobox.png" class="middle" src="../_images/qt-combobox.png" />
+<figcaption>
+<p><span class="caption-text">Přidání nového widgetu typu Combo Box.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Pro reálný vývoj je vhodné výchozí názvy objektů (v našem
+případě <em>label</em> a <em>comboBox</em>) nastavit na hodnoty odpovídajícím
+reálnému využití, např.místo <em>combobox</em> <em>layerSelect</em> a pod.</p>
+</div>
+<p>Po uložení <span class="menuselection">File ‣ Save</span> přejdeme do prostředí QGIS,
+kde použijeme plugin <em>Plugin Reloader</em> <a class="reference internal" href="qgis/images/plugin-reloader-icon.png"><img alt="plugin-reloader" src="qgis/images/plugin-reloader-icon.png" style="width: 1.5em;" /></a>. V <cite>Choose a
+plugin to be reloaded</cite> nastavíme <cite>SaveViews</cite>
+(<code class="xref std std-numref docutils literal notranslate"><span class="pre">qt-plugin-reloader</span></code>) a plugin spustíme. Tím se aktualizuje
+podoba našeho pluginu.</p>
+<figure class="align-center" id="id17">
+<span id="qt-plugin-reloader"></span><a class="reference internal image-reference" href="../_images/plugin-reloaded.png"><img alt="../_images/plugin-reloaded.png" src="../_images/plugin-reloaded.png" style="width: 252.75px; height: 140.25px;" /></a>
+<figcaption>
+<p><span class="caption-text">Konfigurace zásuvného modulu <em>Plugin Reloader</em>.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Po kliknutí na ikonu <a class="reference internal" href="qgis/images/np_plugin_icon.png"><img alt="npicon" src="qgis/images/np_plugin_icon.png" style="width: 1.5em;" /></a> se otevře okno odpovídající návrhu na
+<code class="xref std std-numref docutils literal notranslate"><span class="pre">qtlabel</span></code>.</p>
+<figure class="align-center" id="id18">
+<img alt="../_images/plugin-ui-combo.png" class="small" src="../_images/plugin-ui-combo.png" />
+<figcaption>
+<p><span class="caption-text">Okno modulu <em>Save Views</em> po úpravě uživatelského rozhraní.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="implementace-funkcionality-nastroje-a-dalsi-upravy">
+<span id="krok5"></span><h2>5. Implementace funkcionality nástroje a další úpravy<a class="headerlink" href="#implementace-funkcionality-nastroje-a-dalsi-upravy" title="Permalink to this heading">¶</a></h2>
+<p>Řekněme, že chceme, aby se po spuštění pluginu <em>Combo Box</em> automaticky
+naplnil vektorovými vrstvami aktuálního projektu. Hlavním souborem,
+který se stará o logiku jednotlivých objektů, je v našem případě
+<code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code>. Otevřeme jej v textovém editoru a najdeme
+metodu <code class="docutils literal notranslate"><span class="pre">run()</span></code>. Tato metoda se spouští při každém startu pluginu. Na
+její konec umístíme následující kód (<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-run-method</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># populate the Combo Box with the vector layers loaded in QGIS</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsMapLayer</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QgsMapLayer</span><span class="o">.</span><span class="n">VectorLayer</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id19">
+<span id="np-run-method"></span><img alt="../_images/run-method.svg" class="middle" src="../_images/run-method.svg" /><figcaption>
+<p><span class="caption-text">Úprava zdrojového kódu s cílem naplnit <em>Combo Box</em> vektorovými
+vrstvami.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Po znovu načtení pluginu <a class="reference internal" href="qgis/images/plugin-reloader-icon.png"><img alt="plugin-reloader" src="qgis/images/plugin-reloader-icon.png" style="width: 1.5em;" /></a> a jeho otevření <a class="reference internal" href="qgis/images/np_plugin_icon.png"><img alt="npicon" src="qgis/images/np_plugin_icon.png" style="width: 1.5em;" /></a> je
+vidět, že se změny úspěšně projevily (<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-cb-filled</span></code>).</p>
+<figure class="align-center" id="id20">
+<span id="np-cb-filled"></span><img alt="../_images/vector-select.png" class="small" src="../_images/vector-select.png" />
+<figcaption>
+<p><span class="caption-text">Vzhled dialogového okna po změnách ve zdrojovém kódu.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>V případě, že skončí spustění či znovunačtení chybou, tak
+hledejte relevatní informace ve <em>Zprávách výpisů</em>, konkrétně v
+záložce <em>Python chyba</em>.</p>
+<figure class="align-center">
+<img alt="../_images/python-errors.png" class="middle" src="../_images/python-errors.png" />
+</figure>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Namísto obecného objektu <em>Combo Box</em> by bylo možné použít
+specifický widget QGISu, a to <code class="docutils literal notranslate"><span class="pre">QgsMapLayerComboBox</span></code>. Využití
+tohoto specifického widgetu by nám ušetřilo pár řádek kódu.</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>doplnit nazev tridy</p>
+</div>
+</div>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Seznam vrstev se načítá pouze při spuštění pluginu. Upravte
+zdrojový kód tak, aby umožňoval znovunačtení seznamu vrstev i během
+běhu pluginu.</p>
+</div>
+<p>Obdobně vložíme do okna další elementy a přiřadíme jim příslušnou
+funkcionalitu. Kromě popisu <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">output</span> <span class="pre">directory</span></code> půjde o
+objekty <cite>Line Edit</cite>, <cite>Tool Button</cite>, <cite>Push Button</cite>.  U widgetu
+<cite>pushButton</cite> ve vlastnostech změníme <cite>text</cite> na <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">All</span></code>. Nastavíme
+přiměřené rozměry pro každý element a upravený soubor uložíme.
+Důležité jsou názvy jednotlivých objektů, viz. <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-final-dlg</span></code>,
+budeme je ještě potřebovat.</p>
+<figure class="align-center" id="id21">
+<span id="np-final-dlg"></span><img alt="../_images/plugin-ui-final1.svg" class="middle" src="../_images/plugin-ui-final1.svg" /><figcaption>
+<p><span class="caption-text">Finální návrh uživatelského rozhraní pluginu <em>Save Views</em>.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pokud je uživatelské rozhraní definováno více objekty
+(widgety) je vhodné je rozumně pojmenovat. V případě našeho
+jednoduchého modulu si vystačíme s předvolenými názvy.</p>
+</div>
+<p>V dalším kroku potřebujeme přidat kód, který zabezpečí, aby se po
+kliknutí na tlačítko <code class="docutils literal notranslate"><span class="pre">...</span></code> otevřel dialog, ve kterém zvolíme adresář
+pro uložení výsledných obrazových souborů pro každý prvek ve vybrané
+vektorové vrstvě. O tuto funkcionalitu se postará nová metoda
+<code class="docutils literal notranslate"><span class="pre">select_output_directory()</span></code>, kterou přidáme na konec souboru
+<code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code>, <code class="xref std std-numref docutils literal notranslate"><span class="pre">select-output-dir</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># open directory browser and populate the line edit widget</span>
+<span class="k">def</span> <span class="nf">select_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="p">,</span> <span class="s2">&quot;Select directory &quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">os.path.expanduser(&quot;~&quot;)</span></code> nastaví cestu při otevření
+dialogu na domovský adresář.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kód importující použité třídy jako např. <code class="docutils literal notranslate"><span class="pre">from</span>
+<span class="pre">PyQt5.Widgets</span> <span class="pre">import</span> <span class="pre">QFileDialog</span></code> je vhodnější umístit na začátek
+souboru. Zde uvádíme především pro přehlednost úprav.</p>
+</div>
+<figure class="align-center" id="id22">
+<span id="select-output-dir"></span><img alt="../_images/np_select_output_dir.png" class="middle" src="../_images/np_select_output_dir.png" />
+<figcaption>
+<p><span class="caption-text">Metoda, která otevře dialog pro výběr výstupního adresáře.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Upravte zdrojový kód tak, aby si dialog pamatoval poslední
+použitý adresář.</p>
+</div>
+<p>Následně propojíme metodu <code class="docutils literal notranslate"><span class="pre">select_output_dir()</span></code> s tlačítkem
+<code class="docutils literal notranslate"><span class="pre">toolButton</span></code> (tlačítko <code class="docutils literal notranslate"><span class="pre">...</span></code>). To provedeme přidáním níže
+uvedených řádků do metody <code class="docutils literal notranslate"><span class="pre">__run__()</span></code>, nejlépe na konec těla
+podmínky <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">self.dockwidget</span> <span class="pre">==</span> <span class="pre">None</span></code>, viz
+<code class="xref std std-numref docutils literal notranslate"><span class="pre">select-output-dir</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># connect the select_output_file() method to the clicked signal of the tool button widget</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">toolButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_output_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Na konec metody <code class="docutils literal notranslate"><span class="pre">__run__()</span></code> ještě přidáme kód zajišťující obnovení
+prázdného obsahu objektu <code class="docutils literal notranslate"><span class="pre">lineEdit</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># clear the previously loaded text (if any) in the line edit widget</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id23">
+<img alt="../_images/select-output-dir.svg" class="middle" src="../_images/select-output-dir.svg" /><figcaption>
+<p><span class="caption-text">Úpravy v kódu zajišťující propojení metody <code class="docutils literal notranslate"><span class="pre">select_output_dir()</span></code>
+a tlačítka <code class="docutils literal notranslate"><span class="pre">...</span></code>.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Soubor uložíme, plugin znovu načteme a vyzkoušíme
+(<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-skuska-1</span></code>).</p>
+<figure class="align-center" id="id24">
+<span id="np-skuska-1"></span><img alt="../_images/plugin-test-1.png" class="small" src="../_images/plugin-test-1.png" />
+<figcaption>
+<p><span class="caption-text">Načtení adresáře pro grafické výstupy pomocí nového pluginu.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Posledním krokem je změnit to, aby se po kliknutí na tlačítko <code class="docutils literal notranslate"><span class="pre">Save</span>
+<span class="pre">all</span></code> opravdu provedlo, co chceme. Vytvoříme novou metodu
+<code class="docutils literal notranslate"><span class="pre">save_views()</span></code>, kterou umístíme na konec souboru
+<code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code>, viz <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-run-code</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
+     <span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span>
+     <span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+
+     <span class="c1"># save graphical output for every row in attribute table</span>
+     <span class="n">layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+     <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">layer_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+     <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+         <span class="n">layer</span><span class="o">.</span><span class="n">selectByIds</span><span class="p">([</span><span class="n">feature</span><span class="o">.</span><span class="n">id</span><span class="p">()])</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectionColor</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;transparent&quot;</span><span class="p">));</span>
+         <span class="n">box</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">boundingBoxOfSelected</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+         <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+         <span class="p">)</span>
+         <span class="n">mapfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">_</span><span class="si">{1:03d}</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">feature</span><span class="o">.</span><span class="n">id</span><span class="p">()))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">saveAsImage</span><span class="p">(</span><span class="n">mapfile</span><span class="p">,</span> <span class="n">pixmap</span><span class="p">)</span>
+         <span class="n">layer</span><span class="o">.</span><span class="n">removeSelection</span><span class="p">()</span>
+
+     <span class="c1"># save also full extend of vector layer</span>
+     <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
+     <span class="n">canvas</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span><span class="p">())</span>
+     <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">mapSettings</span><span class="p">()</span><span class="o">.</span><span class="n">outputSize</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+     <span class="p">)</span>
+     <span class="n">mapfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_full.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_name</span><span class="p">))</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">saveAsImage</span><span class="p">(</span><span class="n">mapfile</span><span class="p">,</span> <span class="n">pixmap</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tuto metodu provážeme s tlačítkem <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">all</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># connect the save_views() method to the clicked signal of the push button widget</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_views</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id25">
+<span id="np-run-code"></span><img alt="../_images/save_views.svg" class="middle" src="../_images/save_views.svg" /><figcaption>
+<p><span class="caption-text">Doplnění kódu do metody <em>run()</em>.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Opravte chybu, která nastane po stisknutí tlačítka <code class="docutils literal notranslate"><span class="pre">Save</span>
+<span class="pre">all</span></code> v případě, že není nastaven adresář pro výstupní soubory.</p>
+</div>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Upravte kód tak, aby mohl zadat uživatel výstupní adresář
+ručně bez tlačítka <code class="docutils literal notranslate"><span class="pre">...</span></code>.</p>
+</div>
+<p>Grafické výstupy po aplikovaní na vrstvu krajů jsou zobrazeny na
+<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-plugin-result</span></code>. Jejich názvy v adresáři závisí na názvu
+konkrétní vektorové vrstvy. Liší se pouze pořadovým číslem.</p>
+<figure class="align-center" id="id26">
+<span id="np-plugin-result"></span><img alt="../_images/save-views-result1.png" class="large" src="../_images/save-views-result1.png" />
+<figcaption>
+<p><span class="caption-text">Grafické soubory uložené ve zvoleném adresáři pro vektorovou vrstvu
+krajů České republiky.</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>V případě, že chceme změnit ikonu, stačí nový soubor s ikonkou,
+např.  <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-new-icon</span></code>, uložit do adresáře <code class="file docutils literal notranslate"><span class="pre">save_views</span></code>
+jako soubor <code class="file docutils literal notranslate"><span class="pre">icon.png</span></code> a spustit příkaz <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span></code> v
+příkazové řádce. Nakonec znovunačteme plugin pomocí modulu <em>Plugin
+Reloader</em>.</p>
+<figure class="align-center" id="id27">
+<span id="np-new-icon"></span><a class="reference internal image-reference" href="../_images/np_new_icon.png"><img alt="../_images/np_new_icon.png" src="../_images/np_new_icon.png" style="width: 40.96px; height: 40.96px;" /></a>
+<figcaption>
+<p><span class="caption-text">Příklad nové ikonky</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div>
+<p>Výsledný soubor <code class="docutils literal notranslate"><span class="pre">save_views.py</span></code> je ke stažení také <a class="reference external" href="../_static/scripts/save_views.py">zde</a>.</p>
+</section>
+<section id="jiny-priklad-vyuziti">
+<h2>Jiný příklad využití<a class="headerlink" href="#jiny-priklad-vyuziti" title="Permalink to this heading">¶</a></h2>
+<p>Na obrázku <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-kn-project</span></code> je uveden projekt s katastrálními
+daty. Vyznačené jsou parcely, přes které budou procházet plánované
+inženýrské sítě.</p>
+<figure class="align-center" id="id28">
+<span id="np-kn-project"></span><img alt="../_images/np_kn_project.png" class="middle" src="../_images/np_kn_project.png" />
+<figcaption>
+<p><span class="caption-text">Znázornění parcel přes které májí procházet plánované inženýrské
+sítě.</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Použitím pluginu <cite>Save Views</cite> můžeme pro každého vlastníka vyhodnotit
+grafické znázornění jeho parcely, na které bude zapsané věcné břemeno
+(<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-kn-project-views</span></code>).</p>
+<figure class="align-center" id="id29">
+<span id="np-kn-project-views"></span><img alt="../_images/np_kn_project_views.png" class="middle" src="../_images/np_kn_project_views.png" />
+<figcaption>
+<p><span class="caption-text">Pohled na každou parcelu jako výsledek zásuvného modulu <em>Save Views</em>.</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

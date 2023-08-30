@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Shapefile output &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="shapefile-output">
+<h1>Shapefile output<a class="headerlink" href="#shapefile-output" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code can be downloaded from <a class="reference external" href="https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-03-qgis-shp">https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-03-qgis-shp</a></p>
+</div>
+<p>ESRI Shapefile is one of the most common (file-based) GIS formats.</p>
+<p>For writing the data into Esri Shapefile, there are 2 possible options:</p>
+<section id="creating-shapefile-from-scratch">
+<h2>Creating Shapefile from scratch<a class="headerlink" href="#creating-shapefile-from-scratch" title="Permalink to this heading">¶</a></h2>
+<p>The <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsVectorFileWriter.html">QgsVectorFileWriter</a> class enables to create a new file-based layer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;attr1&quot;</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;attr2&quot;</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">))</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="n">QgsVectorFileWriter</span><span class="p">(</span>
+        <span class="s2">&quot;/tmp/out.shp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UTF8&quot;</span><span class="p">,</span>
+        <span class="n">fields</span><span class="p">,</span>
+        <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">Point</span><span class="p">,</span>
+        <span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="mi">4326</span><span class="p">),</span>
+        <span class="s2">&quot;ESRI Shapefile&quot;</span>
+    <span class="p">)</span>
+    
+<span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="s2">&quot;/tmp/out.gpkg&quot;</span><span class="p">,</span> <span class="s2">&quot;baf&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
+<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+<span class="n">feature</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+<span class="n">feature</span><span class="o">.</span><span class="n">setFields</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+
+
+<span class="n">feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">fromWkt</span><span class="p">(</span><span class="s2">&quot;Point(0 0)&quot;</span><span class="p">))</span>
+<span class="n">feature</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;attr1&quot;</span><span class="p">,</span> <span class="s2">&quot;attttr&quot;</span><span class="p">)</span>
+<span class="n">feature</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">&quot;attr2&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The idea of the code is to approach step-by-step</p>
+<ol class="arabic simple">
+<li><p>A set of attributes is defined by <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsFields.html">QgsFields</a> and <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsField.html">QgsField</a>
+classes</p></li>
+<li><p>New file with geometry, attributes and other metadata is created</p></li>
+<li><p>The file is loaded to QGIS project using the <cite>ogr</cite> driver</p></li>
+<li><p>New vector feature <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsFeature.html">QgsFeature</a> is created and attribute fields are
+set</p></li>
+<li><p>Geometry is read from the WKT format, attributes are assigned directly</p></li>
+<li><p>Feature is added to the layer</p></li>
+</ol>
+</section>
+<section id="creating-shapefile-from-memory-layer">
+<h2>Creating Shapefile from memory layer<a class="headerlink" href="#creating-shapefile-from-memory-layer" title="Permalink to this heading">¶</a></h2>
+<p>QGIS has possibility to copy features from one layer to another one using
+<cite>writeAsVectorFormat</cite> method of the <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsVectorFileWriter.html">QgsVectorFileWriter</a> class</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">QgsVectorFileWriter</span><span class="o">.</span><span class="n">writeAsVectorFormat</span><span class="p">(</span>
+        <span class="n">new_layer</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">driverName</span><span class="o">=</span><span class="s2">&quot;ESRI Shapefile&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="qt-designer">
+<h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Permalink to this heading">¶</a></h2>
+<p>We need to define 4th user input: name for the new to-be-created Shapefile</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>In the Qt Designer add <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsFileWidget.html">QgsFileWidget</a> and use <cite>objectName</cite>
+attribute to name it accordingly.</p>
+<p>You also have to mark the dialogue mode with <cite>QgsFileWidget.SaveFile</cite>
+later in the code.</p>
+</div>
+<figure class="align-center">
+<img alt="../_images/qt_designer_03.png" class="middle" src="../_images/qt_designer_03.png" />
+</figure>
+</section>
+<section id="the-code">
+<h2>The Code<a class="headerlink" href="#the-code" title="Permalink to this heading">¶</a></h2>
+<p>Related modifications will be relatively simple.</p>
+<ol class="arabic simple">
+<li><p>We have to mark the input for the new Shapefile for saving.</p></li>
+<li><p>We have to write features from the memory layer to the new
+Shapefile and add the new file to list of layers of currently running
+project.</p></li>
+</ol>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Try to add new layer by yourselves.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

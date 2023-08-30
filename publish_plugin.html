@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Publish the plugin &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gismentors.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation and environment" href="installation/index.html" />
+    <link rel="prev" title="Creating UI" href="plugins/02-ui.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="plugins/02-ui.html" title="Creating UI"
+             accesskey="P">previous</a> |
+          <a href="installation/index.html" title="Installation and environment"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="publish-the-plugin">
+<h1>Publish the plugin<a class="headerlink" href="#publish-the-plugin" title="Permalink to this heading">¶</a></h1>
+<p>Let’s imagine that we are satisfied with our plugin and we would like
+to share it with our colleagues or other QGIS users. There are several
+steps which must be performed.</p>
+<section id="create-zip-package">
+<h2>Create zip package<a class="headerlink" href="#create-zip-package" title="Permalink to this heading">¶</a></h2>
+<p>A zip package can be created by :program:<code class="docutils literal notranslate"><span class="pre">pb_tool</span></code> (see
+<a class="reference internal" href="build_plugin.html"><span class="doc">Build the plugin</span></a>). Go to your plugin directory and type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pb_tool<span class="w"> </span>zip
+</pre></div>
+</div>
+<p>A new zip file will be created in the current directory. This archive
+contains all necessary information in order to install the QGIS
+plugin.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Try to install QGIS plugin directly from this zip file. Go to
+<span class="menuselection">Plugins ‣ Manage and Install
+Plugins…</span>. Choose <cite>Install from ZIP</cite>.</p>
+</div>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Improve plugins metadata</p>
+<p>Modify <code class="file docutils literal notranslate"><span class="pre">metadata.txt</span></code> file.</p>
+</div>
+</section>
+<section id="official-qgis-plugin-repository">
+<h2>Official QGIS plugin repository<a class="headerlink" href="#official-qgis-plugin-repository" title="Permalink to this heading">¶</a></h2>
+<p>You can publish your plugin in <a class="reference external" href="https://plugins.qgis.org/plugins/">official QGIS Plugin repository</a>. Plugin must fulfill basic
+requirements (GNU GPL license, documentation included). You can upload
+the plugin at
+<a class="reference external" href="https://plugins.qgis.org/accounts/login/?next=/plugins/add/">https://plugins.qgis.org/accounts/login/?next=/plugins/add/</a>. Note that
+it can take few days when your plugin will be approved by the
+moderators.</p>
+</section>
+<section id="local-qgis-plugin-repository">
+<h2>Local QGIS plugin repository<a class="headerlink" href="#local-qgis-plugin-repository" title="Permalink to this heading">¶</a></h2>
+<p>It can be relatively easy to set up a local (in-house) QGIS plugin
+repository. It is only question of creating a XML file accessible via
+HTTP protocol (so web server must run in your infrastructure).</p>
+<p>Simple example for our plugin:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;plugins&gt;</span>
+<span class="w"> </span><span class="nt">&lt;pyqgis_plugin</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fiberplanitconvert&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;0.1&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;description&gt;</span>Convert<span class="w"> </span>input<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>output<span class="w"> </span>FiberPlanIT<span class="w"> </span>shapefiles<span class="nt">&lt;/description&gt;</span>
+<span class="w">     </span><span class="nt">&lt;homepage&gt;</span>https://ctu-geoforall-lab.github.io/qgis-vfk-plugin/<span class="nt">&lt;/homepage&gt;</span>
+<span class="w">     </span><span class="nt">&lt;qgis_minimum_version&gt;</span>3.4<span class="nt">&lt;/qgis_minimum_version&gt;</span>
+<span class="w">     </span><span class="nt">&lt;file_name&gt;</span>fiberplanitconvert.zip<span class="nt">&lt;/file_name&gt;</span>
+<span class="w">     </span><span class="nt">&lt;author_name&gt;</span>GISMentors<span class="nt">&lt;/author_name&gt;</span>
+<span class="w">     </span><span class="nt">&lt;download_url&gt;</span>http://server/fiberplanitconvert.zip<span class="nt">&lt;/download_url&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/pyqgis_plugin&gt;</span>
+<span class="nt">&lt;/plugins&gt;</span>
+</pre></div>
+</div>
+<p>Store it as <code class="file docutils literal notranslate"><span class="pre">qgis_plugins.xml</span></code> and check if the file is
+accessible over HTTP protocol, eg. <a class="reference external" href="http://server/qgis_plugins.xml">http://server/qgis_plugins.xml</a>.</p>
+<p>Now add the new repository to QGIS. Go to <span class="menuselection">Plugins ‣
+Manage and Install Plugins…</span>.</p>
+<figure class="align-center" id="id1">
+<img alt="_images/new_repository.png" src="_images/new_repository.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">In tab <code class="docutils literal notranslate"><span class="pre">Settings</span></code> add the new repository.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Now you should see the plugin in the search list.</p>
+<figure class="align-center">
+<img alt="_images/local_repo_new_plugin.png" src="_images/local_repo_new_plugin.png" />
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When searching for more advanced solutions take a look at
+<a class="reference external" href="https://github.com/boundlessgeo/qgis-plugin-repos/tree/master/docker-plugins-xml">https://github.com/boundlessgeo/qgis-plugin-repos/tree/master/docker-plugins-xml</a>
+or similar solutions.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Save views plugin</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Publish the plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-zip-package">Create zip package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#official-qgis-plugin-repository">Official QGIS plugin repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-qgis-plugin-repository">Local QGIS plugin repository</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="plugins/02-ui.html" title="Creating UI"
+              >previous</a> |
+            <a href="installation/index.html" title="Installation and environment"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Setting coordinate reference system &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="setting-coordinate-reference-system">
+<h1>Setting coordinate reference system<a class="headerlink" href="#setting-coordinate-reference-system" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code can be downloaded from <a class="reference external" href="https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-04-qgis-shp-proj">https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-04-qgis-shp-proj</a></p>
+</div>
+<p>When loading a new layer into project the coordinate reference system
+of the layer must be defined. Otherwise a dialog for picking the correct
+coordinate reference system appears.</p>
+<p>To fix this, we will set the coordinate reference system of the new
+created layer according to the input data file.</p>
+<p>We are creating two layers:</p>
+<ol class="arabic simple">
+<li><p>First layer is the memory layer, which is just used for simplicity of the
+manipulation with new features</p></li>
+<li><p>Second layer is a target output Shapefile</p></li>
+</ol>
+<p>Both of them are created slightly in different way, but the both can
+have information about coordinate reference system assigned.</p>
+<section id="memory-layer">
+<h2>Memory layer<a class="headerlink" href="#memory-layer" title="Permalink to this heading">¶</a></h2>
+<p>The memory layer is partly created by the URI <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsDatasSourceUri.html">QgsDatasSourceUri</a>. We
+just need to add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">crs</span><span class="o">=</span><span class="n">epsg</span><span class="p">:</span><span class="n">NUMBER</span>
+</pre></div>
+</div>
+<p>To the URI</p>
+</section>
+<section id="shapefile">
+<h2>Shapefile<a class="headerlink" href="#shapefile" title="Permalink to this heading">¶</a></h2>
+<p>Shapefile is created using <code class="docutils literal notranslate"><span class="pre">QgsVectorFileWriter.writeAsVectorFormat()</span></code>
+function, which can have <a class="reference external" href="https://qgis.org/pyqgis/master/core/QgsCoordinateReferenceSystem.html">QgsCoordinateReferenceSystem</a> type as the 4th
+parameter.</p>
+<p>Coordinate reference system of the input data can be obtained by <code class="docutils literal notranslate"><span class="pre">layer.crs()</span></code></p>
+<p>EPSG code can be obtained by using <cite>crs.authid()</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">crs</span> <span class="o">=</span> <span class="n">QgsCoordinateReferenceSystem</span><span class="o">.</span><span class="n">fromEpsgId</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">crs</span><span class="o">.</span><span class="n">authid</span><span class="p">()</span>
+<span class="go">EPSG:4326</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">crs</span><span class="o">.</span><span class="n">toWkt</span><span class="p">()</span>
+<span class="go">&#39;GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,</span>
+<span class="go">AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,</span>
+<span class="go">AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY</span>
+<span class="go">[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]&#39;</span>
+</pre></div>
+</div>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Set coordinate reference system for memory layer as well as for a new
+Shapefile.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

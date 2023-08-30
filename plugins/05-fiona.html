@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Alternative version based on Fiona library &#8212; Developing QGIS Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gismentors.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Developing QGIS Plugins</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="alternative-version-based-on-fiona-library">
+<h1>Alternative version based on Fiona library<a class="headerlink" href="#alternative-version-based-on-fiona-library" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://fiona.readthedocs.io/en/latest/manual.html">Fiona</a> is vector data
+library - Python layer on top of <a class="reference external" href="http://gdal.org">GDAL (OGR)</a>.</p>
+<p>It can be interesting, to create independent Python modules, which will solve
+the geospatial issues out of the QGIS environment. Therefore, we are going to
+present different approach of the same data transformation task.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code can be downloaded from <a class="reference external" href="https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-05-fiona">https://github.com/GISMentors/yungo-plugins/tree/master/src/fiberplanitconvert-05-fiona</a></p>
+</div>
+<section id="qt-designer">
+<h2>Qt Designer<a class="headerlink" href="#qt-designer" title="Permalink to this heading">¶</a></h2>
+<p>We are going to add a new graphical element - radio button switcher to
+choose between QGIS tools and Fiona for the data transformation.</p>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Create radiobutton group for QGIS or Fiona. Use <a class="reference external" href="https://doc.qt.io/qtforpython/PySide2/QtWidgets/QRadioButton.html">QRadioButton</a>
+for the two elements. Use <cite>objectName</cite> again for naming the two radio
+buttons.</p>
+<p>Select the two radiobuttons and right-click with mouse and create a new button
+group.</p>
+</div>
+<figure class="align-center">
+<img alt="../_images/qt_designer_04.png" class="middle" src="../_images/qt_designer_04.png" />
+</figure>
+</section>
+<section id="the-code">
+<h2>The code<a class="headerlink" href="#the-code" title="Permalink to this heading">¶</a></h2>
+<section id="selecting-proper-tool">
+<h3>Selecting proper tool<a class="headerlink" href="#selecting-proper-tool" title="Permalink to this heading">¶</a></h3>
+<p>Checking, which radiobutton is checked, is quite easy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">conversion_tool</span> <span class="o">=</span> <span class="s2">&quot;qgis&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">fiona</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">conversion_tool</span> <span class="o">=</span> <span class="s2">&quot;fiona&quot;</span>
+</pre></div>
+</div>
+<p>For further selection of proper tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="n">tool</span> <span class="o">==</span> <span class="s2">&quot;qgis&quot;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">.qgis_convertor</span> <span class="kn">import</span> <span class="n">convert</span> <span class="k">as</span> <span class="n">target_convert</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">.fiona_convertor</span> <span class="kn">import</span> <span class="n">convert</span> <span class="k">as</span> <span class="n">target_convert</span>
+</pre></div>
+</div>
+</section>
+<section id="attribute-data-types">
+<h3>Attribute data types<a class="headerlink" href="#attribute-data-types" title="Permalink to this heading">¶</a></h3>
+<p>QGIS and Fiona do use different data type definition. We re-use our
+<cite>DATA_TYPES</cite> structure and add definition to Fiona</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;demand_points&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;gistool_id&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Bool</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;connection&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;pon_adop&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;p2p_adop&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;pon_homes&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;p2p_homes&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;pon_m_rev&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;p2p_m_rev&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;bldg_id&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;streetname&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;identifier&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;floorcount&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;locked&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">Bool</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;forced_cbl&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">))</span>
+        <span class="p">])</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Fiona<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>Fiona is Python library for reading and writing vector data. It internally
+converts the data structures into GeoJSON data format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fiona</span>
+
+<span class="k">with</span> <span class="n">fiona</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;file.shp&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">input_file</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+
+<span class="c1"># ...</span>
+
+<span class="k">with</span> <span class="n">fiona</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;out_file.shp&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span>
+                <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;ESRI Shapefile&quot;</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">writerecords</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In our scenario, we need to open input data source, convert the attributes
+according to mapping file and save it to target data file.</p>
+</section>
+<section id="creating-new-data-source">
+<h3>Creating new data source<a class="headerlink" href="#creating-new-data-source" title="Permalink to this heading">¶</a></h3>
+<p>For new data source <cite>schema</cite> has to be specified, where geometry type and
+attribute types have to be set. The schema is a simple JSON structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;str:25&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-data-from-csv-structure">
+<h3>Reading data from CSV structure<a class="headerlink" href="#reading-data-from-csv-structure" title="Permalink to this heading">¶</a></h3>
+<p>For CSV file manipulation <cite>csv</cite> python module can be used.</p>
+</section>
+<section id="creating-new-feature">
+<h3>Creating new feature<a class="headerlink" href="#creating-new-feature" title="Permalink to this heading">¶</a></h3>
+<p>As mentioned, Fiona uses GeoJSON structure for vector data manipulation.
+Creating a new features can be straight-forward:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feature</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Oto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="task admonition">
+<p class="admonition-title">Úkol</p>
+<p>Create new ESRI Shapefile based on input CSV file and
+mapping file. After the file is created, use</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vl</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
+<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For adding newly created layer to current QGIS project.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">QGIS and Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_qgis.html">Setup QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start_plugin.html">Start QGIS Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_plugin.html">Build the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qt_designer.html">Qt Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Save views plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publish_plugin.html">Publish the plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation and environment</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2023 GISMentors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
