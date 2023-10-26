@@ -56,8 +56,9 @@ containing a word “buffer” in the name will be printed out.</p>
 </span><span class="linenos">2</span>
 <span class="hll"><span class="linenos">3</span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
 </span><span class="linenos">4</span>    <span class="n">name</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">displayName</span><span class="p">()</span>
-<span class="hll"><span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-</span></pre></div>
+<span class="hll"><span class="linenos">5</span>    <span class="k">if</span> <span class="s1">&#39;buffer&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+</span><span class="linenos">6</span>        <span class="nb">print</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
 </div>
 <p>Let’s select <a class="reference external" href="https://docs.qgis.org/3.28/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisbuffer">native:buffer</a>
 tool and execute it by Python code.</p>

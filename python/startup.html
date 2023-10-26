@@ -52,8 +52,8 @@ when QGIS is starting. It can configured it by using
 directory for QGIS.  This folder is usually located in:</p>
 <ul class="simple">
 <li><p>On Linux <code class="file docutils literal notranslate"><span class="pre">.local/share/QGIS/QGIS3/</span></code></p></li>
-<li><p>On Windows: <code class="file docutils literal notranslate"><span class="pre">AppDataRoamingQGISQGIS3profilesdefaultpython</span></code></p></li>
-<li><p>On macOS: <cite>Library/Application Support/QGIS/QGIS3/profiles/default</cite></p></li>
+<li><p>On Windows: <code class="file docutils literal notranslate"><span class="pre">AppData\Roaming\QGIS\QGIS3\profiles\default\python</span></code></p></li>
+<li><p>On MacOS: <code class="file docutils literal notranslate"><span class="pre">Library/Application</span> <span class="pre">Support/QGIS/QGIS3/profiles/default</span></code></p></li>
 </ul>
 <p>After you locate the correct directory, create a file called <code class="file docutils literal notranslate"><span class="pre">startup.py</span></code>.
 This script will be run automatically on startup.</p>
@@ -62,7 +62,7 @@ This script will be run automatically on startup.</p>
 <p>As you can see above, path to this directory is different on
 every operation system. To locate it correctly, open
 <span class="menuselection">Plugins ‣ Python console</span> and type
-<code class="code docutils literal notranslate"><span class="pre">QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)</span></code>
+<code class="code docutils literal notranslate"><span class="pre">QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)</span></code>.
 By such statement also presence of required modules can be
 checked.</p>
 </div>
