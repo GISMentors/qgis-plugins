@@ -17,9 +17,9 @@ following sections:
 * Create custom applications based on the QGIS API
 
 (source: `PyQGIS Developer Cookbook
-<https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/intro.html>`__)
+<https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/intro.html>`__)
 
-.. important:: All examples are QGIS 3.22 LTR compatible. Python 3 and
+.. important:: All examples are QGIS 3.28 LTR compatible. Python 3 and
    Qt 5 required. Functionality in other QGIS versions is not
    guaranteed.
    
@@ -46,13 +46,13 @@ Important links
 
 * http://qgis.org
 * API
- * https://qgis.org/pyqgis/3.22/ (Python)
- * https://qgis.org/api/3.22/ (C++)
+ * https://qgis.org/pyqgis/3.28/ (Python)
+ * https://qgis.org/api/3.28/ (C++)
 
 .. important::
           
    `Cookbook
-   <https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/>`__
+   <https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/>`__
    **(very useful!!!)**
 
 About

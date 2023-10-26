@@ -3,7 +3,7 @@ Calling processing tools from Python
 ====================================
 
 See `QGIS documentation
-<https://docs.qgis.org/3.22/en/docs/user_manual/processing/console.html>`__
+<https://docs.qgis.org/3.28/en/docs/user_manual/processing/console.html>`__
 for details.
 
 QGIS processing is available in Python through ``processing``
@@ -17,7 +17,7 @@ containing a word "buffer" in the name will be printed out.
    :emphasize-lines: 1, 3, 5
 
 Let's select `native:buffer
-<https://docs.qgis.org/3.22/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisbuffer>`__
+<https://docs.qgis.org/3.28/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisbuffer>`__
 tool and execute it by Python code.
 
 .. literalinclude:: ../_static/scripts/processing_buffer.py
