@@ -3,7 +3,7 @@ Alternative version based on Fiona library
 ******************************************
 
 `Fiona <https://fiona.readthedocs.io/en/latest/manual.html>`_ is vector data
-library - Python layer on top of `GDAL (OGR) <http://gdal.org>`_.
+library - Python layer on top of `GDAL (OGR) <https://gdal.org>`_.
 
 It can be interesting, to create independent Python modules, which will solve
 the geospatial issues out of the QGIS environment. Therefore, we are going to

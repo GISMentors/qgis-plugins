@@ -44,7 +44,7 @@ following sections:
 Important links
 ---------------
 
-* http://qgis.org
+* https://qgis.org
 * API
  * https://qgis.org/pyqgis/3.28/ (Python)
  * https://qgis.org/api/3.28/ (C++)
@@ -60,7 +60,7 @@ About
 
 Licensed under `Creative Commons Attribution-ShareAlike 4.0
 International License
-<http://creativecommons.org/licenses/by-sa/4.0/>`_.
+<https://creativecommons.org/licenses/by-sa/4.0/>`_.
 
 .. figure:: images/cc-by-sa.png 
    :width: 130px
@@ -71,11 +71,11 @@ International License
 Authors
 ^^^^^^^
 
-On behalf of `GISMentors <http://www.gismentors.cz/>`__ group:
+On behalf of `GISMentors <https://www.gismentors.cz/>`__ group:
 
-* `Jáchym Čepický <http://www.gismentors.cz/mentors/cepicky/>`__
-* `Martin Landa <http://www.gismentors.cz/mentors/landa/>`__
-* `Ľudmila Furtkevičová <http://www.gismentors.cz/mentors/furtkevicova/>`_
+* `Jáchym Čepický <https://www.gismentors.cz/mentors/cepicky/>`__
+* `Martin Landa <https://www.gismentors.cz/mentors/landa/>`__
+* `Ľudmila Furtkevičová <https://www.gismentors.cz/mentors/furtkevicova/>`_
 
 Source code
 ^^^^^^^^^^^
