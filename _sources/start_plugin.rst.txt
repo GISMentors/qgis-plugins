@@ -29,7 +29,7 @@ There are three options:
 
 * Tool button with dialog
 * Tool button with dockwidget
-* Processing provider (see `QGIS Advanced course <http://training.gismentors.eu/qgis-pokrocily/geoprocessing/index.html>`_)
+* Processing provider (see `QGIS Advanced course <https://training.gismentors.eu/qgis-pokrocily/geoprocessing/index.html>`_)
 
 In the next step, we shell check all the metafiles, the builder will
 generate for us. We shall leave all checked.
