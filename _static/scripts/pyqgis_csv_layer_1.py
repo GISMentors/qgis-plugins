@@ -1,4 +1,4 @@
-filename = '/home/martin/git/gismentors/yungo-plugins/_static/data/ice_cream.csv'
+filename = '/home/martin/Downloads/ice_cream.csv'
 uri = 'file:///{}?delimiter=,&xField=lon&yField=lat&crs=epsg:4326'.format(filename)
 
 name = os.path.splitext(os.path.basename(filename))[0]
