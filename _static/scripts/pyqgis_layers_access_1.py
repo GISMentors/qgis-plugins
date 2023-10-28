@@ -14,4 +14,3 @@ for layer in QgsProject.instance().mapLayers().values():
             nazev = 'no name defined'
             
         print ('{0}: {1} {2:.1f} ha'.format(feat.id(), nazev, geom.area()/1e4))
-        
