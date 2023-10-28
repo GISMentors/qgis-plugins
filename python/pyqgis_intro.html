@@ -101,8 +101,7 @@ meters), see line <span class="lcode">16</span></p></li>
 <span class="linenos">14</span>            <span class="n">nazev</span> <span class="o">=</span> <span class="s1">&#39;no name defined&#39;</span>
 <span class="linenos">15</span>            
 <span class="hll"><span class="linenos">16</span>        <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1"> </span><span class="si">{2:.1f}</span><span class="s1"> ha&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feat</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="n">nazev</span><span class="p">,</span> <span class="n">geom</span><span class="o">.</span><span class="n">area</span><span class="p">()</span><span class="o">/</span><span class="mf">1e4</span><span class="p">))</span>
-</span><span class="linenos">17</span>        
-</pre></div>
+</span></pre></div>
 </div>
 <p>Script to <a class="reference external" href="../_static/scripts/pyqgis_layers_access_1.py">download</a>.</p>
 </section>
@@ -168,7 +167,7 @@ lines <span class="lcode">5-7</span>)</p></li>
 </span><span class="hll"><span class="linenos"> 7</span>    <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="n">driverName</span><span class="o">=</span><span class="s2">&quot;ESRI Shapefile&quot;</span><span class="p">,</span> <span class="n">destCRS</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
 </span><span class="linenos"> 8</span>                                        
 <span class="linenos"> 9</span><span class="n">layer_shp</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">shp_file</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
-<span class="linenos">10</span><span class="nb">print</span> <span class="p">(</span><span class="n">layer_shp</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>
+<span class="linenos">10</span><span class="nb">print</span><span class="p">(</span><span class="n">layer_shp</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>Script to <a class="reference external" href="../_static/scripts/pyqgis_save_0.py">download</a>.</p>
@@ -177,7 +176,7 @@ lines <span class="lcode">5-7</span>)</p></li>
 <p>Improvements</p>
 <ul class="simple">
 <li><p>check if input layer found (see line <span class="lcode">1</span>)</p></li>
-<li><p>check for writter’s errors (see <a class="reference external" href="https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter">cookbook example</a>)</p></li>
+<li><p>check for writter’s errors (see <a class="reference external" href="https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter">cookbook example</a>)</p></li>
 </ul>
 </div>
 </section>

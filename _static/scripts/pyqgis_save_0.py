@@ -7,4 +7,4 @@ QgsVectorFileWriter.writeAsVectorFormat(
     "UTF-8", driverName="ESRI Shapefile", destCRS=crs)
                                         
 layer_shp = QgsVectorLayer(shp_file, "test", "ogr")
-print (layer_shp.isValid())
+print(layer_shp.isValid())

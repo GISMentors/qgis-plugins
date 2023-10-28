@@ -94,7 +94,7 @@ Script to `download <../_static/scripts/pyqgis_save_0.py>`__.
 
    * check if input layer found (see line :lcode:`1`)
    * check for writter's errors (see `cookbook example
-     <https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter>`__)
+     <https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/vector.html#from-an-instance-of-qgsvectorfilewriter>`__)
 
 Editing vector features
 ^^^^^^^^^^^^^^^^^^^^^^^
