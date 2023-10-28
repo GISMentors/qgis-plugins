@@ -1,6 +1,9 @@
 from qgis import processing
 
 for alg in QgsApplication.processingRegistry().algorithms():
-    name = alg.displayName()
-    if 'buffer' in name:
-        print(alg.id(), "->", name)
+    if 'buffer' in alg.id():
+        print(alg.id(), "->", alg.displayName())
+
+    if alg.id() == 'native:buffer':
+        for p in alg.parameterDefinitions():
+            print(p.name(), p.description())

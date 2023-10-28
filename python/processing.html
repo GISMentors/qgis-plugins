@@ -50,27 +50,38 @@
 for details.</p>
 <p>QGIS processing is available in Python through <code class="docutils literal notranslate"><span class="pre">processing</span></code>
 module. On line <span class="lcode">3</span> we will loop over all available
-algorithms. By a simple condition on line <span class="lcode">5</span> only tools
+algorithms. By a simple condition on line <span class="lcode">4</span> only tools
 containing a word “buffer” in the name will be printed out.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos">1</span><span class="kn">from</span> <span class="nn">qgis</span> <span class="kn">import</span> <span class="n">processing</span>
 </span><span class="linenos">2</span>
 <span class="hll"><span class="linenos">3</span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
-</span><span class="linenos">4</span>    <span class="n">name</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">displayName</span><span class="p">()</span>
-<span class="hll"><span class="linenos">5</span>    <span class="k">if</span> <span class="s1">&#39;buffer&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-</span><span class="linenos">6</span>        <span class="nb">print</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">4</span>    <span class="k">if</span> <span class="s1">&#39;buffer&#39;</span> <span class="ow">in</span> <span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">():</span>
+</span><span class="linenos">5</span>        <span class="nb">print</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">(),</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">alg</span><span class="o">.</span><span class="n">displayName</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>List parameters for selected algorithm:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>    <span class="k">if</span> <span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;native:buffer&#39;</span><span class="p">:</span>
+<span class="hll"><span class="linenos">2</span>        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">alg</span><span class="o">.</span><span class="n">parameterDefinitions</span><span class="p">():</span>
+</span><span class="linenos">3</span>            <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">p</span><span class="o">.</span><span class="n">description</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>Let’s select <a class="reference external" href="https://docs.qgis.org/3.28/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisbuffer">native:buffer</a>
 tool and execute it by Python code.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">qgis</span> <span class="kn">import</span> <span class="n">processing</span>
-<span class="linenos">2</span>
-<span class="hll"><span class="linenos">3</span><span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:buffer&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class="linenos">4</span>    <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;/home/martin/geodata/gismentors/qgis-data/shp/osm/pozarni_stanice.shp&#39;</span><span class="p">,</span>
-<span class="linenos">5</span>    <span class="s1">&#39;DISTANCE&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
-<span class="linenos">6</span>    <span class="s1">&#39;SEGMENTS&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="linenos">7</span>    <span class="s1">&#39;DISSOLVE&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="linenos">8</span>    <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;/tmp/pozarni_stanice_10km.shp&#39;</span>
-<span class="linenos">9</span><span class="p">})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">qgis</span> <span class="kn">import</span> <span class="n">processing</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;/tmp/pozarni_stanice_10km.shp&#39;</span>
+<span class="hll"><span class="linenos"> 4</span><span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:buffer&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class="linenos"> 5</span>    <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;/home/martin/geodata/gismentors/qgis-data/shp/osm/pozarni_stanice.shp&#39;</span><span class="p">,</span>
+<span class="linenos"> 6</span>    <span class="s1">&#39;DISTANCE&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="linenos"> 7</span>    <span class="s1">&#39;SEGMENTS&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="linenos"> 8</span>    <span class="s1">&#39;DISSOLVE&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="n">output</span>
+<span class="linenos">10</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Newly created layer can be added into layer tree (see next section for <a class="reference internal" href="pyqgis_intro.html"><span class="doc">PyQGIS introduction</span></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">output</span><span class="p">),</span> <span class="s1">&#39;ogr&#39;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
