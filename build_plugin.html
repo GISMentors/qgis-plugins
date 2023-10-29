@@ -85,22 +85,6 @@ should no longer be used. <code class="docutils literal notranslate"><span class
 Builder</span></a>). In this file, you can modify target plugin
 path as well as locales, extra directories needed and other metadata.</p>
 </section>
-<section id="first-build-of-the-plugin">
-<h2>First build of the plugin<a class="headerlink" href="#first-build-of-the-plugin" title="Permalink to this heading">¶</a></h2>
-<p>First we compile UI files</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/save_views
-pb_tool<span class="w"> </span>compile
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have no administrator permission on MS Windows than
-you can run <strong class="program">pb_tool</strong> by this command:</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="nv">%homepath%</span>\AppData\Roaming\Python\Python39\Scripts\pb_tool compile
-</pre></div>
-</div>
-</div>
-</section>
 <section id="using-plugin-in-place">
 <h2>Using plugin in place<a class="headerlink" href="#using-plugin-in-place" title="Permalink to this heading">¶</a></h2>
 <p>Instead of deploying the plugin using <strong class="program">pb_tool</strong> it is more
@@ -192,7 +176,6 @@ and QGIS libraries.</p>
 <li class="toctree-l1"><a class="reference internal" href="start_plugin.html">Start QGIS Plugin</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Build the plugin</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-file-pb-tool-cfg">Configuration file <code class="file docutils literal notranslate"><span class="pre">pb_tool.cfg</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#first-build-of-the-plugin">First build of the plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-plugin-in-place">Using plugin in place</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#activate-plugin-in-qgis">Activate plugin in QGIS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>

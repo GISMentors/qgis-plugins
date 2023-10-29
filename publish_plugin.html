@@ -51,7 +51,7 @@ to share it with our colleagues or other QGIS users. There are several
 steps which must be performed.</p>
 <section id="create-zip-package">
 <h2>Create zip package<a class="headerlink" href="#create-zip-package" title="Permalink to this heading">¶</a></h2>
-<p>A zip package can be created by :program:<code class="docutils literal notranslate"><span class="pre">pb_tool</span></code> (see
+<p>A zip package can be created by <strong class="program">pb_tool</strong> (see
 <a class="reference internal" href="build_plugin.html"><span class="doc">Build the plugin</span></a>). Go to your plugin directory and type:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pb_tool<span class="w"> </span>zip
 </pre></div>
@@ -88,19 +88,19 @@ HTTP protocol (so web server must run in your infrastructure).</p>
 <p>Simple example for our plugin:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;plugins&gt;</span>
-<span class="w"> </span><span class="nt">&lt;pyqgis_plugin</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fiberplanitconvert&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;0.1&quot;</span><span class="nt">&gt;</span>
-<span class="w">     </span><span class="nt">&lt;description&gt;</span>Convert<span class="w"> </span>input<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>output<span class="w"> </span>FiberPlanIT<span class="w"> </span>shapefiles<span class="nt">&lt;/description&gt;</span>
-<span class="w">     </span><span class="nt">&lt;homepage&gt;</span>https://ctu-geoforall-lab.github.io/qgis-vfk-plugin/<span class="nt">&lt;/homepage&gt;</span>
-<span class="w">     </span><span class="nt">&lt;qgis_minimum_version&gt;</span>3.4<span class="nt">&lt;/qgis_minimum_version&gt;</span>
-<span class="w">     </span><span class="nt">&lt;file_name&gt;</span>fiberplanitconvert.zip<span class="nt">&lt;/file_name&gt;</span>
+<span class="w"> </span><span class="nt">&lt;pyqgis_plugin</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;sav_views&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;0.1&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;description&gt;</span>Save<span class="w"> </span>views<span class="nt">&lt;/description&gt;</span>
+<span class="w">     </span><span class="nt">&lt;homepage&gt;</span>https://github.com/gismentors/save_views<span class="nt">&lt;/homepage&gt;</span>
+<span class="w">     </span><span class="nt">&lt;qgis_minimum_version&gt;</span>3.28<span class="nt">&lt;/qgis_minimum_version&gt;</span>
+<span class="w">     </span><span class="nt">&lt;file_name&gt;</span>save_views.zip<span class="nt">&lt;/file_name&gt;</span>
 <span class="w">     </span><span class="nt">&lt;author_name&gt;</span>GISMentors<span class="nt">&lt;/author_name&gt;</span>
-<span class="w">     </span><span class="nt">&lt;download_url&gt;</span>http://server/fiberplanitconvert.zip<span class="nt">&lt;/download_url&gt;</span>
+<span class="w">     </span><span class="nt">&lt;download_url&gt;</span>http://server/save_views.zip<span class="nt">&lt;/download_url&gt;</span>
 <span class="w"> </span><span class="nt">&lt;/pyqgis_plugin&gt;</span>
 <span class="nt">&lt;/plugins&gt;</span>
 </pre></div>
 </div>
 <p>Store it as <code class="file docutils literal notranslate"><span class="pre">qgis_plugins.xml</span></code> and check if the file is
-accessible over HTTP protocol, eg. <a class="reference external" href="http://server/qgis_plugins.xml">http://server/qgis_plugins.xml</a>.</p>
+accessible over HTTP protocol, eg. <code class="docutils literal notranslate"><span class="pre">http://server/qgis_plugins.xml</span></code>.</p>
 <p>Now add the new repository to QGIS. Go to <span class="menuselection">Plugins ‣
 Manage and Install Plugins…</span>.</p>
 <figure class="align-center" id="id1">
@@ -111,7 +111,7 @@ Manage and Install Plugins…</span>.</p>
 </figure>
 <p>Now you should see the plugin in the search list.</p>
 <figure class="align-center">
-<img alt="_images/local_repo_new_plugin.png" src="_images/local_repo_new_plugin.png" />
+<img alt="_images/save-views-enable.png" src="_images/save-views-enable.png" />
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>

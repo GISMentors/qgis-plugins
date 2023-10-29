@@ -15,15 +15,14 @@ choose, consider one of following editors:
 
 * `Sublime <https://www.sublimetext.com/>`__ A sophisticated text
   editor for code, markup and prose
-* `Atom <https://atom.io/>`__ A hackable text editor for the 21st
-  Century
 * `Visual Studio Code <https://code.visualstudio.com/>`__ A
   lightweight but powerful source code editor which runs on your
   desktop and is available for Windows, macOS and Linux.
-* `PyCharm <https://www.jetbrains.com/pycharm/>`_) The Python IDE for
+* `PyCharm <https://www.jetbrains.com/pycharm/>`_ The Python IDE for
   Professional Developers
+* `add your own`...
 
-Sublime and Atom are rather simplier editors (with complex features in
+Sublime is rather simplier editors (with complex features in
 the backend though), while Visual Studio Code and PyCharm are more
 Integrated development enviroments.
 
@@ -60,13 +59,14 @@ On Linux, you should be able to use your favourite packaging tool, like
 Install Qt Designer on Windows
 ==============================
 
-On MS Windows platform, start the OSGeo4W installator, choose
+On MS Windows platform QT Designer is installed together with QGIS. In
+any case you can install it using OSGeo4W installator, choose
 ``Advanced installation`` and search for the ``qt5-tools`` package.
 
 .. figure:: images/install-qt5-tools.png
    :class: middle
 
 .. figure:: images/qt-designer-windows-start.png
-   :class: middle
+   :class: small
            
    Qt Designer can be found in the start menu of Windows.
