@@ -8,9 +8,9 @@
 
 """
 
-__author__ = 'y'
-__date__ = '2023-10-28'
-__copyright__ = 'Copyright 2023, x'
+__author__ = 'info@gismentors.cz'
+__date__ = '2023-10-29'
+__copyright__ = 'Copyright 2023, GISMentors'
 
 import unittest
 
