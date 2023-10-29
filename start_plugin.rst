@@ -29,7 +29,7 @@ There are three options:
 
 * Tool button with dialog
 * Tool button with dockwidget
-* Processing provider (see `QGIS Advanced course <https://training.gismentors.eu/qgis-pokrocily/geoprocessing/index.html>`_)
+* Processing provider (see :skoleni:`QGIS Advanced course <qgis-pokrocily/geoprocessing/index.html>`)
 
 In the next step, we shell check all the metafiles, the builder will
 generate for us. We shall leave all checked.
@@ -54,25 +54,21 @@ location in your computer.
 
    Set output folder for a plugin.
 
+Final screen shows summary of the new plugin and QGIS environment settings as
+well as the next required steps.
+   
 .. figure:: images/plugin_builder6.png
 
     Summary
 
-.. note:: On Microsoft Windows at this point, you may see error message about
+..
+   .. note:: On Microsoft Windows at this point, you may see error message about
    :program:`pyrcc5` script not being available in your system and therefore it
    could not be compiled. Do not panic, we will compile the plugin manually later with
    environment set up.
-
    .. figure:: images/pyrcc5-error.png
       :class: medium
         
-Final screen shows summary of the new plugin and QGIS environment settings as
-well as the next required steps.
-
-.. figure:: images/plugin_builder7.png
-
-        Plugin summary
-
 Important information are:
 
 #. Location of the newly created plugin

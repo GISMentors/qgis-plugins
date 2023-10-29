@@ -59,4 +59,4 @@ The key file is :file:`save_views.py` and the ``run()`` method:
         :linenos:
 
 .. note:: The code can be downloaded from `our Github
-          <https://github.com/GISMentors/qgis-plugins/tree/master/src/save_views-01-init>`__.
+          <https://github.com/GISMentors/qgis-plugins/tree/master/src/save_views01-init>`__.

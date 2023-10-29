@@ -1,10 +1,10 @@
 Plugin Builder Results
 
 Your plugin SaveViews was created in:
-    /home/jachym/src/qgis_plugins/save_views
+    C:/Users/martin/Documents/qgis_plugins\save_views
 
 Your QGIS plugin directory is located at:
-    /home/jachym/.local/share/QGIS/QGIS3/profiles/default/python/plugins
+    C:/Users/martin/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
 
 What's Next:
 
