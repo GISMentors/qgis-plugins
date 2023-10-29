@@ -15,29 +15,19 @@ Build the plugin
 
 .. figure:: images/pyrcc5-help.png
 
-.. note:: If you are on MS Windows, open *OSGeo4W Shell* (ideally as
-   *administrator*) and run two scripts before any attempts:
-   ``py3_env`` and ``qt5_env``
+.. note:: If you are on MS Windows, open *OSGeo4W Shell*:
 
-        .. code-block:: bash
-
-                c:\> py3_env
-
-                c:\> qt5_env
-
-                c:\> pyrcc5 -help
-
-        .. figure:: images/pyrcc5-windows.png
+   .. figure:: images/pyrcc5-windows.png
 
 To build the plugin :program:`pb_tool` must be available in the system. This
-package is available via PyPI service (using ``pip install``).
+package is available via PyPI service.
 
 .. note:: It might look as good idea to use standard ``make``, since
    Makefile is available too. This is considered deprecated option and
    should no longer be used. ``pb_tool`` is more complex build system
    (and supports various operating systems).
 
-To install ``pb_tool``, just use
+To install ``pb_tool`` run the command below (on MS Windows use *OSGeo4W Shell*):
 
 .. code-block:: bash
 
@@ -67,7 +57,7 @@ First we compile UI files
 
    .. code-block:: bat
 
-      %homepath%\AppData\Roaming\Python\Python37\Scripts\pb_tool compile
+      %homepath%\AppData\Roaming\Python\Python39\Scripts\pb_tool compile
 ..         
 
 ..
@@ -158,7 +148,7 @@ To create the virtualenv, run
         python3 -m venv myvenv
 
 For QGIS running within Python `virtualenv`, you need to adjust
-:file:``activate` script and add :envvar:`PYTHONPATH` with Python, Qt
+:file:`activate` script and add :envvar:`PYTHONPATH` with Python, Qt
 and QGIS libraries.
 
 .. code-block:: bash

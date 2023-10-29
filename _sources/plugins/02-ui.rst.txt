@@ -8,7 +8,10 @@ For now, we need two user inputs:
 * Output target directory
 
 .. task:: In the Qt Designer create two required inputs. Use
-    :pyqgis:`QgsMapLayerComboBox` for layer selection, :pyqgis:`QgsFileWidget` for
+    `QgsMapLayerComboBox
+    <https://qgis.org/pyqgis/3.28/gui/QgsMapLayerComboBox.html>`__ for
+    layer selection, `QgsFileWidget
+    <https://qgis.org/pyqgis/3.28/gui/QgsFileWidget.html>`__ for
     output dir name.
 
     Use ``objectName`` attribute to name the objects: `layers`,
@@ -75,3 +78,7 @@ Finally, we approach to the heart of the plugin: the ``save_views()`` method.
    :class: large
 
    Example of image files stored in output directory.
+
+.. note:: The code can be downloaded from `our Github
+          <https://github.com/GISMentors/qgis-plugins/tree/master/src/save_views02>`__.
+   
