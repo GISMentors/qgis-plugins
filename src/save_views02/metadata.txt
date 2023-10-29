@@ -3,17 +3,17 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=SaveViews
+name=Save Views
 qgisMinimumVersion=3.0
-description=Plugin saves map image for every feature in the layer
+description=This plugin saves views
 version=0.1
 author=GISMentors
 email=info@gismentors.cz
 
-about=Plugin interates over features from currently selected vector layer nad stores every feature's composition into new image file.
+about=This plugin iterates over features currently selected vector layer and stores every feature's composition into a new image file.
 
 tracker=https://github.com/gismentors/save_views/issues
-repository=https://github.com/gismentors/
+repository=https://github.com/gismentors/save_views
 # End of mandatory metadata
 
 # Recommended items:
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=export, feature, python, gismentors
 
-homepage=https://github.com/gismentors/
+homepage=https://github.com/gismentors/save_views
 category=Plugins
 icon=icon.png
 # experimental flag

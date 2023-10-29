@@ -9,7 +9,7 @@ steps which must be performed.
 Create zip package
 ==================
 
-A zip package can be created by :program:``pb_tool`` (see
+A zip package can be created by :program:`pb_tool` (see
 :doc:`build_plugin`). Go to your plugin directory and type:
 
 .. code-block:: bash
@@ -52,18 +52,18 @@ Simple example for our plugin:
 
    <?xml version="1.0"?>
    <plugins>
-    <pyqgis_plugin name="fiberplanitconvert" version="0.1">
-        <description>Convert input files to output FiberPlanIT shapefiles</description>
-        <homepage>https://ctu-geoforall-lab.github.io/qgis-vfk-plugin/</homepage>
-        <qgis_minimum_version>3.4</qgis_minimum_version>
-        <file_name>fiberplanitconvert.zip</file_name>
+    <pyqgis_plugin name="sav_views" version="0.1">
+        <description>Save views</description>
+        <homepage>https://github.com/gismentors/save_views</homepage>
+        <qgis_minimum_version>3.28</qgis_minimum_version>
+        <file_name>save_views.zip</file_name>
         <author_name>GISMentors</author_name>
-        <download_url>http://server/fiberplanitconvert.zip</download_url>
+        <download_url>http://server/save_views.zip</download_url>
     </pyqgis_plugin>
    </plugins>
 
 Store it as :file:`qgis_plugins.xml` and check if the file is
-accessible over HTTP protocol, eg. http://server/qgis_plugins.xml.
+accessible over HTTP protocol, eg. ``http://server/qgis_plugins.xml``.
 
 Now add the new repository to QGIS. Go to :menuselection:`Plugins -->
 Manage and Install Plugins...`. 
@@ -74,7 +74,7 @@ Manage and Install Plugins...`.
 
 Now you should see the plugin in the search list.
 
-.. figure:: ./images/local_repo_new_plugin.png
+.. figure:: ./images/save-views-enable.png
 
 .. tip:: When searching for more advanced solutions take a look at
          https://github.com/boundlessgeo/qgis-plugin-repos/tree/master/docker-plugins-xml

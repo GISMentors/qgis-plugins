@@ -36,15 +36,15 @@ has to do following tasks:
 #. Call the saving function
 
 .. literalinclude:: ../src/save_views02/save_views.py
-        :lines: 217-242
+        :lines: 215-239
         :linenos:
-        :emphasize-lines: 16,17,18
+        :emphasize-lines: 15-17
 
 Note, that we had to import QGIS Python modules
 
 .. literalinclude:: ../src/save_views02/save_views.py
         :linenos:
-        :lines: 29-32
+        :lines: 34-37
 
 .. tip:: For testing purpose we can hardcode output path
 
@@ -59,7 +59,7 @@ Finally, we approach to the heart of the plugin: the ``save_views()`` method.
 
 .. literalinclude:: ../src/save_views02/save_views.py
         :linenos:
-        :lines: 244-276
+        :lines: 241-272
 
 .. figure:: ../images/plugin-ui-final2.png
    :class: small

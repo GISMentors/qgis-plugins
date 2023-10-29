@@ -1,11 +1,11 @@
 #/***************************************************************************
 # SaveViews
 #
-# Plugin saves map image for every feature in the layer
+# This plugin saves views
 #							 -------------------
-#		begin				: 2020-03-06
+#		begin				: 2023-10-29
 #		git sha				: $Format:%H$
-#		copyright			: (C) 2020 by GISMentors
+#		copyright			: (C) 2023 by GISMentors
 #		email				: info@gismentors.cz
 # ***************************************************************************/
 #
@@ -65,7 +65,7 @@ PEP8EXCLUDE=pydev,resources.py,conf.py,third_party,ui
 #	* Windows:
 #	  AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins'
 
-QGISDIR=/home/jachym/.local/share/QGIS/QGIS3/profiles/default/python/plugins/
+QGISDIR=C:\Users\martin\AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
 
 #################################################
 # Normally you would not need to edit below here

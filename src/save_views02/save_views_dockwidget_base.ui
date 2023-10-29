@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>302</height>
+    <width>454</width>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,31 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <widget class="QgsMapLayerComboBox" name="layers"/>
+    </item>
+    <item row="1" column="2">
+     <widget class="QgsFileWidget" name="output_dir"/>
+    </item>
     <item row="0" column="1">
      <widget class="QLabel" name="label_layers">
       <property name="text">
        <string>Select layer:</string>
       </property>
      </widget>
+    </item>
+    <item row="3" column="2">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_output">
@@ -29,13 +48,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QgsFileWidget" name="output_dir"/>
-    </item>
-    <item row="0" column="2">
-     <widget class="QgsMapLayerComboBox" name="layers"/>
-    </item>
-    <item row="2" column="2" colspan="2">
+    <item row="2" column="2">
      <widget class="QToolButton" name="submit">
       <property name="text">
        <string>Save all features</string>

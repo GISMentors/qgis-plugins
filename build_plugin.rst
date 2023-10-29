@@ -41,18 +41,19 @@ Configuration file :file:`pb_tool.cfg`
 Builder <start_plugin>`). In this file, you can modify target plugin
 path as well as locales, extra directories needed and other metadata.
 
-*************************
-First build of the plugin
-*************************
+..
+  *************************
+  First build of the plugin
+  *************************
 
-First we compile UI files
+  First we compile UI files
 
-.. code-block:: bash
+  .. code-block:: bash
 
    cd /path/to/save_views
    pb_tool compile
 
-.. note:: If you have no administrator permission on MS Windows than
+  .. note:: If you have no administrator permission on MS Windows than
    you can run :program:`pb_tool` by this command:
 
    .. code-block:: bat
