@@ -6,6 +6,8 @@ The goal is to create QGIS plugin which will loop over all features in
 selected vector layer. Every feature will be save as a separated image
 file and saved in the target directory.
 
+Sample Python script to `download <../_static/scripts/save_views.py>`__.
+
 ===========
 User Inputs
 ===========
