@@ -54,9 +54,8 @@ Newly created layer can be added into layer tree (see next section for :doc:`pyq
       QgsApplication.setPrefixPath(r'C:\OSGeo4W\apps\qgis-ltr', True)
       qgs = QgsApplication([], False)
       qgs.initQgis()
-      sys.path.append(r'C:\OSGeo4W\apps\qgis-ltr\python\plugins')
 
-      import processing
+      sys.path.append(r'C:\OSGeo4W\apps\qgis-ltr\python\plugins')
       from processing.core.Processing import Processing
 
       Processing.initialize()
