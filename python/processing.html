@@ -52,7 +52,7 @@ for details.</p>
 module. On line <span class="lcode">3</span> we will loop over all available
 algorithms. By a simple condition on line <span class="lcode">4</span> only tools
 containing a word “buffer” in the name will be printed out.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos">1</span><span class="kn">from</span> <span class="nn">qgis</span> <span class="kn">import</span> <span class="n">processing</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis</span><span class="w"> </span><span class="kn">import</span> <span class="n">processing</span>
 </span><span class="linenos">2</span>
 <span class="hll"><span class="linenos">3</span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
 </span><span class="hll"><span class="linenos">4</span>    <span class="k">if</span> <span class="s1">&#39;buffer&#39;</span> <span class="ow">in</span> <span class="n">alg</span><span class="o">.</span><span class="n">id</span><span class="p">():</span>
@@ -67,7 +67,7 @@ containing a word “buffer” in the name will be printed out.</p>
 </div>
 <p>Let’s select <a class="reference external" href="https://docs.qgis.org/3.28/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#qgisbuffer">native:buffer</a>
 tool and execute it by Python code.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">qgis</span> <span class="kn">import</span> <span class="n">processing</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis</span><span class="w"> </span><span class="kn">import</span> <span class="n">processing</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;/tmp/pozarni_stanice_10km.shp&#39;</span>
 <span class="hll"><span class="linenos"> 4</span><span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:buffer&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -83,6 +83,26 @@ tool and execute it by Python code.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">output</span><span class="p">),</span> <span class="s1">&#39;ogr&#39;</span><span class="p">)</span>
 <span class="linenos">2</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In the case of standalone script the processing must be
+properly initialized</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsApplication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qgis.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsNativeAlgorithms</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">setPrefixPath</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\OSGeo4W\apps\qgis-ltr&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">qgs</span> <span class="o">=</span> <span class="n">QgsApplication</span><span class="p">([],</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">qgs</span><span class="o">.</span><span class="n">initQgis</span><span class="p">()</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\OSGeo4W\apps\qgis-ltr\python\plugins&#39;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">processing.core.Processing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Processing</span>
+
+<span class="n">Processing</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">addProvider</span><span class="p">(</span><span class="n">QgsNativeAlgorithms</span><span class="p">())</span>
+</pre></div>
+</div>
 </div>
 </section>
 
@@ -145,7 +165,7 @@ tool and execute it by Python code.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018-2023 GISMentors.
+        &#169; Copyright 2018-2025 GISMentors.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
         </div>

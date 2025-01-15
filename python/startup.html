@@ -71,7 +71,7 @@ checked.</p>
 <span class="c1">#</span>
 <span class="c1"># adding custom path to Python plugins</span>
 <span class="c1">#</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/home/user/python/plugins&quot;</span><span class="p">)</span>
 
 <span class="c1">#</span>
@@ -90,14 +90,14 @@ checked.</p>
 <span class="c1">#</span>
 <span class="c1"># installation of missing packages</span>
 <span class="c1">#</span>
-<span class="kn">import</span> <span class="nn">pip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pip</span>
 <span class="n">pip</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;some_package&#39;</span><span class="p">])</span>
 
 <span class="c1">#</span>
 <span class="c1"># checking presence of the packages</span>
 <span class="c1">#</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">fiona</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">fiona</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everything is okay&quot;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fiona is not installed&quot;</span><span class="p">)</span>
@@ -166,7 +166,7 @@ environment are set up and ready to use.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018-2023 GISMentors.
+        &#169; Copyright 2018-2025 GISMentors.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
         </div>

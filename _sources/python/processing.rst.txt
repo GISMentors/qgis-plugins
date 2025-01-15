@@ -41,3 +41,22 @@ Newly created layer can be added into layer tree (see next section for :doc:`pyq
    :language: python
    :lines: 12-13
    :linenos:                     
+
+.. tip:: In the case of standalone script the processing must be
+   properly initialized
+
+   .. code-block:: python
+
+      import sys
+
+      from qgis.core import QgsApplication
+      from qgis.analysis import QgsNativeAlgorithms
+      QgsApplication.setPrefixPath(r'C:\OSGeo4W\apps\qgis-ltr', True)
+      qgs = QgsApplication([], False)
+      qgs.initQgis()
+
+      sys.path.append(r'C:\OSGeo4W\apps\qgis-ltr\python\plugins')
+      from processing.core.Processing import Processing
+
+      Processing.initialize()
+      QgsApplication.processingRegistry().addProvider(QgsNativeAlgorithms())

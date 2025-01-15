@@ -75,7 +75,7 @@ has to do following tasks:</p>
 <li><p>Get the user input data</p></li>
 <li><p>Call the saving function</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 2</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that loads and starts the plugin&quot;&quot;&quot;</span>
 <span class="linenos"> 3</span>
 <span class="linenos"> 4</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pluginIsActive</span><span class="p">:</span>
@@ -103,10 +103,10 @@ has to do following tasks:</p>
 </pre></div>
 </div>
 <p>Note, that we had to import QGIS Python modules</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">qgis.PyQt.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
-<span class="linenos">2</span><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
-<span class="linenos">3</span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsMapLayerProxyModel</span>
-<span class="linenos">4</span><span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="n">QgsFileWidget</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.PyQt.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
+<span class="linenos">2</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">iface</span>
+<span class="linenos">3</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsMapLayerProxyModel</span>
+<span class="linenos">4</span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsFileWidget</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -119,7 +119,7 @@ has to do following tasks:</p>
 <section id="image-save-function">
 <h3>Image save function<a class="headerlink" href="#image-save-function" title="Permalink to this heading">¶</a></h3>
 <p>Finally, we approach to the heart of the plugin: the <code class="docutils literal notranslate"><span class="pre">save_views()</span></code> method.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span> <span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span><span class="w"> </span><span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 2</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="linenos"> 3</span><span class="sd">        save graphical output for every row in attribute table</span>
 <span class="linenos"> 4</span><span class="sd">        &quot;&quot;&quot;</span>
@@ -236,7 +236,7 @@ directory is selected.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018-2023 GISMentors.
+        &#169; Copyright 2018-2025 GISMentors.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
         </div>

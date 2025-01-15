@@ -255,7 +255,7 @@ který se stará o logiku jednotlivých objektů, je v našem případě
 metodu <code class="docutils literal notranslate"><span class="pre">run()</span></code>. Tato metoda se spouští při každém startu pluginu. Na
 její konec umístíme následující kód (<code class="xref std std-numref docutils literal notranslate"><span class="pre">np-run-method</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># populate the Combo Box with the vector layers loaded in QGIS</span>
-<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsMapLayer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsMapLayer</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QgsMapLayer</span><span class="o">.</span><span class="n">VectorLayer</span><span class="p">:</span>
@@ -327,8 +327,8 @@ vektorové vrstvě. O tuto funkcionalitu se postará nová metoda
 <code class="docutils literal notranslate"><span class="pre">select_output_directory()</span></code>, kterou přidáme na konec souboru
 <code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code>, <code class="xref std std-numref docutils literal notranslate"><span class="pre">select-output-dir</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># open directory browser and populate the line edit widget</span>
-<span class="k">def</span> <span class="nf">select_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFileDialog</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="p">,</span> <span class="s2">&quot;Select directory &quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
     <span class="p">)</span>
@@ -390,10 +390,10 @@ a tlačítka <code class="docutils literal notranslate"><span class="pre">...</s
 <span class="pre">all</span></code> opravdu provedlo, co chceme. Vytvoříme novou metodu
 <code class="docutils literal notranslate"><span class="pre">save_views()</span></code>, kterou umístíme na konec souboru
 <code class="file docutils literal notranslate"><span class="pre">save_views.py</span></code>, viz <code class="xref std std-numref docutils literal notranslate"><span class="pre">np-run-code</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
-     <span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span>
-     <span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">save_views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QPixmap</span>
+     <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsProject</span>
+     <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">iface</span>
 
      <span class="c1"># save graphical output for every row in attribute table</span>
      <span class="n">layer_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockwidget</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -539,7 +539,7 @@ grafické znázornění jeho parcely, na které bude zapsané věcné břemeno
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018-2023 GISMentors.
+        &#169; Copyright 2018-2025 GISMentors.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
         </div>
