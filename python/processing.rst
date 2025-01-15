@@ -43,7 +43,7 @@ Newly created layer can be added into layer tree (see next section for :doc:`pyq
    :linenos:                     
 
 .. tip:: In the case of standalone script the processing must be
-         properly initialized
+   properly initialized
 
    .. code-block:: python
 
